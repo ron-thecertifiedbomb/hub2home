@@ -4,14 +4,16 @@ import { Select, Option, Textarea, Input } from "@material-tailwind/react";
 import { BsCardImage } from "react-icons/bs";
 
 const Form = () => {
-  // const [buyer, setBuyer] = useState("");
-  // const [seller, setSeller] = useState("");
-  const [storeName, setStoreName] = useState("");
 
+  const [buyer, setBuyer] = useState("");
+  const [seller, setSeller] = useState("");
   const [name, setName] = useState("");
+  const [storeName, setStoreName] = useState("");
   const [contactNumber, setContactNumber] = useState("");
   const [emailAddress, setEmailAddress] = useState("");
 
+  const [errorBuyer, seterrorBuyer] = useState(false);
+  const [errorSeller, seterrorSeller] = useState(false);
   const [errorName, setErrorName] = useState(false);
   const [errorContactNumber, setErrorContactNumber] = useState(false);
   const [errorEmailAddress, seterrorEmailAddress] = useState(false);
@@ -22,6 +24,20 @@ const Form = () => {
     setEmailAddress("");
   }, [errorName, errorContactNumber, errorEmailAddress]);
 
+  const onOptionChangeBuyer = (e) => {
+    setBuyer(e.target.value);
+    setSeller("");
+    seterrorBuyer(false);
+    seterrorSeller(false);
+  };
+
+  const onOptionChangeSeller = (e) => {
+    setSeller(e.target.value);
+    setBuyer("");
+    seterrorBuyer(false);
+    seterrorSeller(false);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setName(e.target.value);
@@ -31,21 +47,35 @@ const Form = () => {
     {
       name === "" ? setErrorName(true) : setName("");
     }
-
     {
       contactNumber === "" ? setErrorContactNumber(true) : setContactNumber("");
     }
-
     {
       emailAddress === "" ? seterrorEmailAddress(true) : setEmailAddress("");
     }
+    {
+      buyer === "" ? seterrorBuyer(true) : "";
+    }
+    {
+      seller === "" ? seterrorSeller(true) : "";
+    }
+    setStoreName("");
+
+    
   };
 
   const handleFocus = () => {
     setErrorName(false);
     setErrorContactNumber(false);
     seterrorEmailAddress(false);
+    seterrorBuyer(false);
+    seterrorSeller(false);
   };
+
+  console.log(`buyer: ${buyer}`);
+  console.log(`name: ${name}`);
+  console.log(`contact number: ${contactNumber}`);
+  console.log(`email address: ${emailAddress}`);
 
   return (
     <form
@@ -56,12 +86,38 @@ const Form = () => {
 
       <div className="flex sm:gap-25 md:gap-[35px] mt-[15px] mb-[15px]">
         <div className="flex sm:gap-1 justify-center items-center md:gap-2">
-          <Radio id="red" name="color" color="red" /> <label>Buyer</label>
+          <Radio
+            type="radio"
+            id="buyer"
+            name="buyer"
+            color="red"
+            value="Buyer"
+            checked={buyer === "Buyer"}
+            onChange={onOptionChangeBuyer}
+          />{" "}
+          <label>Buyer</label>
         </div>
         <div className="flex sm:gap-2 justify-center items-center md:gap-3">
-          <Radio id="red" name="color" color="red" /> <label>Seller</label>
+          <Radio
+            type="radio"
+            id="seller"
+            name="seller"
+            color="red"
+            value="Seller"
+            checked={seller === "Seller"}
+            onChange={onOptionChangeSeller}
+          />{" "}
+          <label>Seller</label>
         </div>
       </div>
+
+      {errorBuyer && errorSeller ? (
+        <p class=" text-red-500 text-xs italic mb-5">This field is required</p>
+      ) : (
+        <p class="invisible text-red-500 text-xs italic mb-5">
+          This field is required
+        </p>
+      )}
 
       <div className="flex flex-col w-full gap-2 mt-5 mb-1">
         <label className=" font-Roboto font-bold text-[18px]">
