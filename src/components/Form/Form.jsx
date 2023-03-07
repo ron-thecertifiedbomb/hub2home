@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Radio } from "@material-tailwind/react";
-import { Select, Option, Textarea } from "@material-tailwind/react";
+import { Select, Option, Textarea, Input } from "@material-tailwind/react";
 import { BsCardImage } from "react-icons/bs";
 
 const Form = () => {
@@ -21,7 +21,6 @@ const Form = () => {
     setContactNumber("");
     setEmailAddress("");
   }, [errorName, errorContactNumber, errorEmailAddress]);
-  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -48,36 +47,38 @@ const Form = () => {
     seterrorEmailAddress(false);
   };
 
- 
-
   return (
     <form
       onSubmit={handleSubmit}
-      className=" p-5 pt-[70px] mb-40 max-w-[1140px] w-full m-auto  md:p-2px lg:pt-[86px]"
+      className=" p-5 pt-[70px] mb-40 max-w-[1020px] w-full m-auto  md:p-2px lg:pt-[86px]"
     >
       <h1 className=" font-Roboto font-bold text-[18px]">I am a</h1>
 
-      <div className="flex sm:gap-20 md:gap-35 mt-[15px] mb-[15px]">
-        <div className="flex sm:gap-2 justify-center items-center md:gap-5">
+      <div className="flex sm:gap-25 md:gap-[35px] mt-[15px] mb-[15px]">
+        <div className="flex sm:gap-1 justify-center items-center md:gap-2">
           <Radio id="red" name="color" color="red" /> <label>Buyer</label>
         </div>
-        <div className="flex sm:gap-2 justify-center items-center md:gap-5">
+        <div className="flex sm:gap-2 justify-center items-center md:gap-3">
           <Radio id="red" name="color" color="red" /> <label>Seller</label>
         </div>
       </div>
 
-      <label className=" font-Roboto font-bold text-[18px]">
-        Complete Name
-      </label>
-      <input
-        className=" mt-[12px] shadow appearance-none border border-red-500 rounded w-full h-[45px] py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-        id="name"
-        type="text"
-        placeholder="Complete Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        onFocus={handleFocus}
-      />
+      <div className="flex flex-col w-full gap-2 mt-5 mb-1">
+        <label className=" font-Roboto font-bold text-[18px]">
+          Complete Name
+        </label>
+        <Input
+          color="red"
+          size="md"
+          label="Complete Name"
+          id="email address"
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          onFocus={handleFocus}
+        />
+      </div>
+
       {errorName ? (
         <p class=" text-red-500 text-xs italic mb-5">This field is required</p>
       ) : (
@@ -86,31 +87,37 @@ const Form = () => {
         </p>
       )}
 
-      <label className=" font-Roboto font-bold text-[18px]">
-        Store Name (if applicable)
-      </label>
-      <input
-        className=" mt-[12px] mb-[51px] mb-shadow appearance-none border border-red-500 rounded w-full h-[45px] py-2 px-3 text-gray-700  leading-tight focus:outline-none focus:shadow-outline"
-        id="name"
-        type="text"
-        placeholder="Enter your store name"
-        value={storeName}
-        onChange={(e) => setStoreName(e.target.value)}
-        onFocus={handleFocus}
-      />
+      <div className="flex flex-col w-full gap-2 mt-5 mb-10">
+        <label className=" font-Roboto font-bold text-[18px]">
+          Store Name (if applicable)
+        </label>
+        <Input
+          color="red"
+          size="md"
+          label="Enter your store name"
+          id="email address"
+          type="text"
+          value={storeName}
+          onChange={(e) => setStoreName(e.target.value)}
+          onFocus={handleFocus}
+        />
+      </div>
 
-      <label className=" font-Roboto font-bold text-[18px]">
-        Contact Number
-      </label>
-      <input
-        className=" mt-[12px] shadow appearance-none border border-red-500 rounded w-full h-[45px] py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-        id="contact-number"
-        type="number"
-        placeholder="Enter your contact number"
-        value={contactNumber}
-        onChange={(e) => setContactNumber(e.target.value)}
-        onFocus={handleFocus}
-      />
+      <div className="flex flex-col w-full gap-2 mt-5 mb-1">
+        <label className=" font-Roboto font-bold text-[18px]">
+          Contact Number
+        </label>
+        <Input
+          color="red"
+          size="md"
+          label="Enter your contact number"
+          id="email address"
+          type="text"
+          value={contactNumber}
+          onChange={(e) => setContactNumber(e.target.value)}
+          onFocus={handleFocus}
+        />
+      </div>
       {errorContactNumber ? (
         <p class=" text-red-500 text-xs italic mb-5">This field is required</p>
       ) : (
@@ -119,30 +126,33 @@ const Form = () => {
         </p>
       )}
 
-      <label className=" font-Roboto font-bold text-[18px]">
-        Email Address
-      </label>
-      <input
-        className="  mt-[12px] shadow appearance-none border border-red-500 rounded w-full h-[45px] py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-        id="email address"
-        type="text"
-        placeholder="Enter your email address"
-        value={emailAddress}
-        onChange={(e) => setEmailAddress(e.target.value)}
-        onFocus={handleFocus}
-      />
+      <div className="flex flex-col w-full gap-2 mt-5 mb-1">
+        <label className=" font-Roboto font-bold text-[18px]">
+          Email Address
+        </label>
+        <Input
+          color="red"
+          size="md"
+          label="Enter your email address"
+          id="email address"
+          type="text"
+          value={emailAddress}
+          onChange={(e) => setEmailAddress(e.target.value)}
+          onFocus={handleFocus}
+        />
+      </div>
+
       {errorEmailAddress ? (
         <p class=" text-red-500 text-xs italic mb-5">This field is required</p>
       ) : (
-        <p class="invisible text-red-500 text-xs italic mb-5">
+        <p class="invisible text-red-500 text-xs italic mb-5 ">
           This field is required
         </p>
       )}
 
-      <div className="flex flex-col w-full gap-6 mb-5">
+      <div className="flex flex-col w-full gap-3 mb-5">
         <label className=" font-Roboto font-bold text-[18px]">Concern/s</label>
-
-        <Select label="Enter Concerns" error>
+        <Select color="red" label="Enter Concerns">
           <Option>Product Desctiption</Option>
           <Option>Store Information</Option>
           <Option>Warranty</Option>
@@ -153,22 +163,22 @@ const Form = () => {
         </Select>
       </div>
 
-      <label className=" font-Roboto font-bold text-[18px]">
-        Concern/sDescription
-      </label>
+      <div className="flex flex-col w-full gap-3 mt-5 mb-5">
+        <label className=" font-Roboto font-bold text-[18px]">
+          Concern/sDescription
+        </label>
 
-      <div className="flex flex-col w-full mt-5">
-        <Textarea label="Enter your concerns description" error />
+        <Textarea color="red" label="Enter your concerns description" />
       </div>
 
-      <div className="flex flex-col w-full gap-6 mb-5">
+      <div className="flex flex-col w-full gap-3 mt-5 mb-10">
         <label className=" font-Roboto font-bold text-[18px]">
           Preferred Mode of Communitcation
         </label>
 
-        <Select label="Enter Concerns" error>
+        <Select color="red" label="Enter Concerns">
           <Option>Phone Call</Option>
-          <Option>Tet Message</Option>
+          <Option>Text Message</Option>
           <Option>Email</Option>
         </Select>
       </div>
@@ -180,7 +190,7 @@ const Form = () => {
         style={{ color: "grey", fontSize: "45px", marginTop: "5px" }}
       />
 
-      <div className="flex w-full justify-end mt-10">
+      <div className="flex w-full justify-end mt-[60px]  border-gray-600 border-t-2 border-dashed border-spacing-1.5  pt-[60px] ">
         <button
           type="submit"
           className="w-[180px] h-[52px] bg-[#f02f1b]  rounded-md text-white"
@@ -193,4 +203,3 @@ const Form = () => {
 };
 
 export default Form;
-
