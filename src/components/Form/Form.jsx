@@ -70,7 +70,8 @@ const Form = () => {
     seterrorSeller(false);
   };
 
-  console.log(`buyer: ${buyer}`);
+  console.log(`selected: ${buyer}`);
+  console.log(`selected: ${seller}`);
   console.log(`name: ${name}`);
   console.log(`contact number: ${contactNumber}`);
   console.log(`email address: ${emailAddress}`);
@@ -203,18 +204,38 @@ const Form = () => {
         </p>
       )}
 
-      <div className="flex flex-col w-full gap-3 mb-5">
-        <label className=" font-Roboto font-bold text-[18px]">Concern/s</label>
+      { buyer ? (<div className="flex flex-col w-full gap-3 mb-5">
+        <label className=" font-Roboto font-bold text-[18px]">
+          Concern/s
+          </label>
         <Select color="red" label="Enter Concerns">
           <Option>Product Desctiption</Option>
           <Option>Store Information</Option>
           <Option>Warranty</Option>
           <Option>About Shipment</Option>
+          <Option>About the Order</Option>
           <Option>Returns and Refunds</Option>
           <Option>About Cancellation</Option>
+          <Option>About My Account</Option>
           <Option>Other Concerns</Option>
         </Select>
       </div>
+      ) :
+
+      (<div className="flex flex-col w-full gap-3 mb-5">
+        <label className=" font-Roboto font-bold text-[18px]">
+          Concern/s
+          </label>
+        <Select color="red" label="Enter Concerns">
+          <Option>About My Account</Option>
+          <Option>About the Process</Option>
+          <Option>About the Packaging</Option>
+          <Option>Claims and Payment</Option>
+          <Option>About the Order</Option>
+          <Option>Returns and Refunds</Option>
+          <Option>Other Concerns</Option>
+        </Select>   
+      </div>)}
 
       <div className="flex flex-col w-full gap-3 mt-5 mb-5">
         <label className=" font-Roboto font-bold text-[18px]">
@@ -228,7 +249,7 @@ const Form = () => {
         <label className=" font-Roboto font-bold text-[18px]">
           Preferred Mode of Communitcation
         </label>
-
+        
         <Select color="red" label="Enter Concerns">
           <Option>Phone Call</Option>
           <Option>Text Message</Option>
