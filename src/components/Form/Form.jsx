@@ -7,6 +7,7 @@ const Form = () => {
 
   const [buyer, setBuyer] = useState("");
   const [seller, setSeller] = useState("");
+
   const [name, setName] = useState("");
   const [storeName, setStoreName] = useState("");
   const [contactNumber, setContactNumber] = useState("");
@@ -14,6 +15,7 @@ const Form = () => {
 
   const [errorBuyer, seterrorBuyer] = useState(false);
   const [errorSeller, seterrorSeller] = useState(false);
+
   const [errorName, setErrorName] = useState(false);
   const [errorContactNumber, setErrorContactNumber] = useState(false);
   const [errorEmailAddress, seterrorEmailAddress] = useState(false);
@@ -40,6 +42,7 @@ const Form = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     setName(e.target.value);
     setContactNumber(e.target.value);
     setEmailAddress(e.target.value);
@@ -71,9 +74,11 @@ const Form = () => {
   };
 
   console.log(`buyer: ${buyer}`);
+  console.log(`seller: ${seller}`);
   console.log(`name: ${name}`);
   console.log(`contact number: ${contactNumber}`);
   console.log(`email address: ${emailAddress}`);
+  console.log(errorName)
 
   return (
     <form
@@ -91,9 +96,10 @@ const Form = () => {
             value="Buyer"
             checked={buyer === "Buyer"}
             onChange={onOptionChangeBuyer}
-          />{" "}
+          />
           <label>Buyer</label>
         </div>
+
         <div className="flex sm:gap-2 justify-center items-center md:gap-3">
           <Radio
             type="radio"
@@ -103,39 +109,51 @@ const Form = () => {
             value="Seller"
             checked={seller === "Seller"}
             onChange={onOptionChangeSeller}
-          />{" "}
+          />
           <label>Seller</label>
         </div>
       </div>
 
       {errorBuyer && errorSeller ? (
-        <p class=" text-red-500 text-xs italic mb-5">This field is required</p>
+        <p class=" text-green-500 text-xs italic mb-5">This field is required</p>
       ) : (
         <p class="invisible text-red-500 text-xs italic mb-5">
           This field is required
         </p>
       )}
 
+    
       <div className="flex flex-col w-full gap-2 mt-5 mb-1">
         <label className=" font-Roboto font-bold text-[18px]">
           Complete Name
         </label>
+        
+       {errorName ? (
         <Input
-          color="red"
           size="md"
           label="Complete Name"
-          id="email address"
+          id="name"
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
           onFocus={handleFocus}
-        />
+          success
+        />) : 
+        ( <Input
+          color="red"
+          size="md"
+          label="Complete Name"
+          id="name"
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          onFocus={handleFocus}/>)}
       </div>
 
       {errorName ? (
-        <p class=" text-red-500 text-xs italic mb-5">This field is required</p>
+        <p className=" text-green-500 text-xs italic mb-5">This field is required</p>
       ) : (
-        <p class="invisible text-red-500 text-xs italic mb-5">
+        <p className="invisible text-red-500 text-xs italic mb-5">
           This field is required
         </p>
       )}
@@ -143,24 +161,34 @@ const Form = () => {
       <div className="flex flex-col w-full gap-2 mt-5 mb-10">
         <label className=" font-Roboto font-bold text-[18px]">
           Store Name (if applicable)
-        </label>
+        </label> 
         <Input
-          color="red"
+        color="red"
           size="md"
           label="Enter your store name"
           id="email address"
           type="text"
           value={storeName}
           onChange={(e) => setStoreName(e.target.value)}
-          onFocus={handleFocus}
-        />
+          onFocus={handleFocus} /> 
       </div>
 
       <div className="flex flex-col w-full gap-2 mt-5 mb-1">
         <label className=" font-Roboto font-bold text-[18px]">
           Contact Number
         </label>
+        
+        {errorName ? (
         <Input
+          size="md"
+          label="Enter your contact number"
+          id="email address"
+          type="text"
+          value={contactNumber}
+          onChange={(e) => setContactNumber(e.target.value)}
+          onFocus={handleFocus}
+          success
+        />) :( <Input
           color="red"
           size="md"
           label="Enter your contact number"
@@ -169,12 +197,13 @@ const Form = () => {
           value={contactNumber}
           onChange={(e) => setContactNumber(e.target.value)}
           onFocus={handleFocus}
-        />
+        />)}
+
       </div>
       {errorContactNumber ? (
-        <p class=" text-red-500 text-xs italic mb-5">This field is required</p>
+        <p className=" text-green-500 text-xs italic mb-5">This field is required</p>
       ) : (
-        <p class="invisible text-red-500 text-xs italic mb-5">
+        <p className="invisible text-red-500 text-xs italic mb-5">
           This field is required
         </p>
       )}
@@ -183,7 +212,18 @@ const Form = () => {
         <label className=" font-Roboto font-bold text-[18px]">
           Email Address
         </label>
+        {errorName ? (
         <Input
+          size="md"
+          label="Enter your email address"
+          id="email address"
+          type="text"
+          value={emailAddress}
+          onChange={(e) => setEmailAddress(e.target.value)}
+          onFocus={handleFocus}
+          success
+        />) : 
+        ( <Input
           color="red"
           size="md"
           label="Enter your email address"
@@ -192,13 +232,13 @@ const Form = () => {
           value={emailAddress}
           onChange={(e) => setEmailAddress(e.target.value)}
           onFocus={handleFocus}
-        />
+        />)}
       </div>
 
       {errorEmailAddress ? (
-        <p class=" text-red-500 text-xs italic mb-5">This field is required</p>
+        <p className=" text-green-500 text-xs italic mb-5">This field is required</p>
       ) : (
-        <p class="invisible text-red-500 text-xs italic mb-5 ">
+        <p className="invisible text-red-500 text-xs italic mb-5 ">
           This field is required
         </p>
       )}
