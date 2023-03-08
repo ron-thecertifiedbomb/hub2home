@@ -60,8 +60,6 @@ const Form = () => {
       seller === "" ? seterrorSeller(true) : "";
     }
     setStoreName("");
-
-
   };
 
   const handleFocus = () => {
@@ -80,8 +78,7 @@ const Form = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className=" p-5 pt-[70px] mb-40 max-w-[1020px] w-full m-auto  md:p-2px lg:pt-[86px]"
-    >
+      className=" p-5 pt-[70px] mb-40 max-w-[1020px] w-full m-auto  md:p-2px lg:pt-[86px]">
       <h1 className=" font-Roboto font-bold text-[18px]">I am a</h1>
 
       <div className="flex sm:gap-25 md:gap-[35px] mt-[15px] mb-[15px]">

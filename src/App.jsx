@@ -1,13 +1,14 @@
 import "./App.css";
-import ContactPage from "./Pages/ContactPage";
 import NavBar from "./components/NavBar/NavBar";
+import SuccessfulPage from "./Pages/SuccessfulPage.jsx/SuccessfulPage";
+import ContactPage from './Pages/ContactPage'
 
 const App = () => {
   return (
     <div className="App">
       <NavBar />
-    
-      <ContactPage />
+      {/* <ContactPage /> */}
+      <SuccessfulPage />
     </div>
   );
 };

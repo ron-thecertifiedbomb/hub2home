@@ -8,18 +8,21 @@ const NavBar = () => {
         <img src={Logo} alt="logo" className='w-[150px] md:w-[204px]'></img>
 
         <ul className="hidden md:flex gap-[22px] ">
-          <li className="font-Roboto  font-semibold text-[18px] text-[#00000] ">
+          <li className="font-Roboto  font-semibold text-[18px] text-[#00000] cursor-pointer hover:text-[#fa7419]  ">
             Home
           </li>
 
-          <li className="font-Roboto font-semibold text-[18px] text-[#00000]">
+          <li className="font-Roboto font-semibold text-[18px] text-[#00000]  cursor-pointer hover:text-[#fa7419]  ">
             Privacy and Policy
           </li>
-          <li className="font-Roboto font-semibold text-[18px] text-[#00000]">
+          <li className="font-Roboto font-semibold text-[18px] text-[#00000]  cursor-pointer hover:text-[#fa7419]  ">
             FAQs
           </li>
-          <li className="font-Roboto font-semibold text-[18px] text-[#00000]">
+          <li className="font-Roboto font-semibold text-[18px] text-[#00000]  cursor-pointer hover:text-[#fa7419]  ">
             Terms and Condition
+          </li>
+          <li className="font-Roboto font-semibold text-[18px] text-[#00000]  cursor-pointer hover:text-[#fa7419]  ">
+            Contact Us
           </li>
         </ul>
       </nav>
