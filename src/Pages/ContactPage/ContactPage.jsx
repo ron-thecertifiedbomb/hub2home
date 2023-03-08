@@ -1,6 +1,6 @@
 import React from "react";
-import Form from "../components/Form/Form";
-import Hero from "../components/Hero/Hero";
+import Form from "../../components/Form/Form";
+import Hero from "../../components/Hero/Hero";
 
 const ContactPage = () => {
   return (

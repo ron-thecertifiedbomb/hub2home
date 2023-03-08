@@ -1,7 +1,7 @@
 import "./App.css";
 import NavBar from "./components/NavBar/NavBar";
 import SuccessfulPage from "./Pages/SuccessfulPage.jsx/SuccessfulPage";
-import ContactPage from './Pages/ContactPage'
+import ContactPage from './Pages/ContactPage/ContactPage'
 
 const App = () => {
   return (
