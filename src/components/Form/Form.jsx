@@ -61,7 +61,7 @@ const Form = () => {
     }
     setStoreName("");
 
-    
+
   };
 
   const handleFocus = () => {
@@ -249,7 +249,7 @@ const Form = () => {
       <div className="flex w-full justify-end mt-[60px]  border-gray-600 border-t-2 border-dashed border-spacing-1.5  pt-[60px] ">
         <button
           type="submit"
-          className="w-[180px] h-[52px] bg-[#f02f1b]  rounded-md text-white"
+          className=" w-full md:w-[180px] h-[52px] bg-[#f02f1b]  rounded-md text-white"
         >
           Submit
         </button>
