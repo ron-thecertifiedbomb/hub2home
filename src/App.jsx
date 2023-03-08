@@ -7,8 +7,8 @@ const App = () => {
   return (
     <div className="App">
       <NavBar />
-      {/* <ContactPage /> */}
-      <SuccessfulPage />
+      <ContactPage />
+      {/* <SuccessfulPage /> */}
     </div>
   );
 };
