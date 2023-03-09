@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
+import {useNavigate} from "react-router-dom"
 import { Radio } from "@material-tailwind/react";
 import { Select, Option, Textarea, Input } from "@material-tailwind/react";
 import { BsCardImage } from "react-icons/bs";
 import {Buyer, Seller} from '../../constants/constants';
 import  styles  from "../../constants/style";
 
+
 const Form = () => {
+
+  const navigate = useNavigate();
   
   const [buyer, setBuyer] = useState('');
   const [seller, setSeller] = useState('');
@@ -74,6 +78,7 @@ const Form = () => {
   };
 
  const sendEmail = () => {
+  navigate("/success")
   console.log('We will send this information')
   alert('We will send this information')
  }
