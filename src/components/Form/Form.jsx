@@ -39,7 +39,7 @@ const Form = () => {
     setStoreName(e.target.value); 
   };
   const inputContactNumber = (e) => {
-    contactNumber(e.target.value); 
+    setContactNumber(e.target.value); 
   };
   const inputEmailAddress = (e) => {
     setEmailAddress(e.target.value); 
