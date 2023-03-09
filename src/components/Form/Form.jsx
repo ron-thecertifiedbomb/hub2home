@@ -118,18 +118,18 @@ const Form = () => {
   // }
   // console.log(isAlphanumeric(contactNumber)); 
   
-  console.log(`type: ${buyer}`);
-  console.log(`type: ${seller}`);
-  console.log(`name: ${name}`);
-  console.log(`contact number: ${contactNumber}`);
-  console.log(`email address: ${emailAddress}`);
-  console.log(`store name: ${storeName}`);
-  console.log(`concern and description: ${concernAndDescription}`);
-  console.log(`selected concern: ${buyersValueConcern}`);
-  console.log(`selected concern: ${sellersValueConcern}`);
-  console.log(`selected mode of communication: ${preferredModeOfCommunication}`);
-  console.log(`buyer status: ${buyerTrue}`);
-  console.log(`seller status: ${sellerTrue}`);
+  console.log(`I am a: ${buyer}`);
+  console.log(`I am a: ${seller}`);
+  console.log(`Complete Name: ${name}`);
+  console.log(`Contact Number: ${contactNumber}`);
+  console.log(`Store Name (optional): ${storeName}`);
+  console.log(`Email Address: ${emailAddress}`);
+  console.log(`Concern/s: ${buyersValueConcern}`);
+  console.log(`Concern/s: ${sellersValueConcern}`);
+  console.log(`Concern/s and Description: ${concernAndDescription}`);
+  console.log(`Preferred Mode of Communication: ${preferredModeOfCommunication}`);
+  // console.log(`buyer status: ${buyerTrue}`);
+  // console.log(`seller status: ${sellerTrue}`);
   return (
 
     
