@@ -7,8 +7,8 @@ import  styles  from "../../constants/style";
 
 const Form = () => {
   
-  const [buyer, setBuyer] = useState("");
-  const [seller, setSeller] = useState("");
+  const [buyer, setBuyer] = useState('');
+  const [seller, setSeller] = useState('');
   const [name, setName] = useState("");
   const [storeName, setStoreName] = useState("");
   const [contactNumber, setContactNumber] = useState("");
@@ -18,6 +18,9 @@ const Form = () => {
   const [buyersValueConcern, setBuyersValueConcern] = useState("");
   const [sellersValueConcern, setSellerssValueConcern] = useState("");
   const [preferredModeOfCommunication, setPreferredModeOfCommunication] = useState("");
+
+  const [buyerTrue, setBuyerTrue] = useState(false)
+  const [sellerTrue, setSellerTrue] = useState(false)
 
   const [errorBuyer, setErrorBuyer] = useState(false);
   const [errorSeller, setErrorSeller] = useState(false);
@@ -47,16 +50,16 @@ const Form = () => {
 
   const onOptionChangeBuyer = (e) => {
     setBuyer(e.target.value);
-    setSeller("");
-    setErrorBuyer(false);
-    setErrorSeller(false);
+    setBuyerTrue(true);
+    setSellerTrue(true)
+    setSeller('');
   };
 
   const onOptionChangeSeller = (e) => {
     setSeller(e.target.value);
-    setBuyer("");
-    setErrorBuyer(false);
-    setErrorSeller(false);
+    setBuyerTrue(true);
+    setSellerTrue(true);
+    setBuyer('');
   };
 
   const selectBuyerConcern = (e) => {
@@ -70,6 +73,17 @@ const Form = () => {
     setPreferredModeOfCommunication(e);
   };
 
+ const sendEmail = () => {
+  console.log('We will send this information')
+  alert('We will send this information')
+ }
+
+ const stayOnThisPage = () => {
+  
+  console.log('stay on this page')
+  alert('stay on this page')
+ }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setName(e.target.value);
@@ -80,12 +94,14 @@ const Form = () => {
     {name === "" ? setErrorName(true) : setName("")}
     {contactNumber === "" ? setErrorContactNumber(true) : setContactNumber("")}
     {emailAddress === "" ? setErrorEmailAddress(true) : setEmailAddress("")}
-    {buyer === "" ? setErrorBuyer(true) : ""}
-    {seller === "" ? setErrorSeller(true) : ""}
+    {buyer === "" ? setErrorBuyer(true) : ''}
+    {seller === "" ? setErrorSeller(true) : ''}
+
+    
+    {name && contactNumber && emailAddress && buyerTrue && sellerTrue ? sendEmail() : stayOnThisPage() }
 
     setStoreName("");
     setConcernAndDescription("");
-   
   };
 
   const handleFocus = () => {
@@ -96,11 +112,11 @@ const Form = () => {
     setErrorSeller(false);
   };
 
-  function isAlphanumeric(input) {
-    const regex = /^[a-zA-Z0-9]+$/;
-    return regex.test(input);
-  }
-  console.log(isAlphanumeric(contactNumber)); 
+  // function isAlphanumeric(input) {
+  //   const regex = /^[a-zA-Z0-9]+$/;
+  //   return regex.test(input);
+  // }
+  // console.log(isAlphanumeric(contactNumber)); 
   
   console.log(`type: ${buyer}`);
   console.log(`type: ${seller}`);
@@ -112,8 +128,11 @@ const Form = () => {
   console.log(`selected concern: ${buyersValueConcern}`);
   console.log(`selected concern: ${sellersValueConcern}`);
   console.log(`selected mode of communication: ${preferredModeOfCommunication}`);
-
+  console.log(`buyer status: ${buyerTrue}`);
+  console.log(`seller status: ${sellerTrue}`);
   return (
+
+    
     <form onSubmit={handleSubmit} className="p-5 pt-[70px] mb-40 max-w-[1020px] w-full m-auto  md:p-2px lg:pt-[86px]">
       <h1 className="font-Roboto text-[18px]">I am a</h1>
 
@@ -169,8 +188,8 @@ const Form = () => {
           label="Complete Name"
           type="text"
           id="name"
-          pattern="^[a-zA-Z0-9\s]+$"
-          // pattern="/^[a-z\d\-_\s]+$/"
+          pattern="^[a-zA-Z0-9\s\'\]+$"
+         
           title="Please enter alphanumeric characters only"
           value={name}
           onChange={inputName}  
