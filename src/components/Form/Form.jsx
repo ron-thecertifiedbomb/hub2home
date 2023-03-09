@@ -13,6 +13,7 @@ const Form = () => {
   const [storeName, setStoreName] = useState("");
   const [contactNumber, setContactNumber] = useState("");
   const [emailAddress, setEmailAddress] = useState("");
+
   const [concernAndDescription, setConcernAndDescription] = useState("");
   const [buyersValueConcern, setBuyersValueConcern] = useState("");
   const [sellersValueConcern, setSellerssValueConcern] = useState("");
