@@ -7,13 +7,14 @@ const Form = () => {
 
   const [buyer, setBuyer] = useState("");
   const [seller, setSeller] = useState("");
+
   const [name, setName] = useState("");
   const [storeName, setStoreName] = useState("");
   const [contactNumber, setContactNumber] = useState("");
   const [emailAddress, setEmailAddress] = useState("");
 
-  const [errorBuyer, seterrorBuyer] = useState(false);
-  const [errorSeller, seterrorSeller] = useState(false);
+  const [errorBuyer, setErrorBuyer] = useState(false);
+  const [errorSeller, setErrorSeller] = useState(false);
   const [errorName, setErrorName] = useState(false);
   const [errorContactNumber, setErrorContactNumber] = useState(false);
   const [errorEmailAddress, seterrorEmailAddress] = useState(false);
@@ -24,19 +25,22 @@ const Form = () => {
     setEmailAddress("");
   }, [errorName, errorContactNumber, errorEmailAddress]);
 
+
   const onOptionChangeBuyer = (e) => {
     setBuyer(e.target.value);
     setSeller("");
-    seterrorBuyer(false);
-    seterrorSeller(false);
+    setErrorBuyer(false);
+    setErrorSeller(false);
   };
+
 
   const onOptionChangeSeller = (e) => {
     setSeller(e.target.value);
     setBuyer("");
-    seterrorBuyer(false);
-    seterrorSeller(false);
+    setErrorBuyer(false);
+    setErrorSeller(false);
   };
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -54,13 +58,14 @@ const Form = () => {
       emailAddress === "" ? seterrorEmailAddress(true) : setEmailAddress("");
     }
     {
-      buyer === "" ? seterrorBuyer(true) : "";
+      buyer === "" ? setErrorBuyer(true) : "";
     }
     {
-      seller === "" ? seterrorSeller(true) : "";
+      seller === "" ? setErrorSeller(true) : "";
     }
     setStoreName("");
   };
+
 
   const handleFocus = () => {
     setErrorName(false);
@@ -70,7 +75,8 @@ const Form = () => {
     seterrorSeller(false);
   };
 
-  console.log(`buyer: ${buyer}`);
+  console.log(`selected: ${buyer}`);
+  console.log(`selected: ${seller}`);
   console.log(`name: ${name}`);
   console.log(`contact number: ${contactNumber}`);
   console.log(`email address: ${emailAddress}`);
@@ -78,7 +84,8 @@ const Form = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className=" p-5 pt-[70px] mb-40 max-w-[1020px] w-full m-auto  md:p-2px lg:pt-[86px]">
+      className=" p-5 pt-[70px] mb-40 max-w-[1020px] w-full m-auto  md:p-2px lg:pt-[86px]"
+    >
       <h1 className=" font-Roboto font-bold text-[18px]">I am a</h1>
 
       <div className="flex sm:gap-25 md:gap-[35px] mt-[15px] mb-[15px]">
@@ -203,18 +210,42 @@ const Form = () => {
         </p>
       )}
 
-      <div className="flex flex-col w-full gap-3 mb-5">
-        <label className=" font-Roboto font-bold text-[18px]">Concern/s</label>
-        <Select color="red" label="Enter Concerns">
-          <Option>Product Desctiption</Option>
-          <Option>Store Information</Option>
-          <Option>Warranty</Option>
-          <Option>About Shipment</Option>
-          <Option>Returns and Refunds</Option>
-          <Option>About Cancellation</Option>
-          <Option>Other Concerns</Option>
-        </Select>
-      </div>
+      {buyer ? (
+        <div className="flex flex-col w-full gap-3 mb-5">
+          <label className=" font-Roboto font-bold text-[18px]">
+            Concern/s
+          </label>
+          <Select color="red" label="Enter Concerns">
+            <Option>Product Desctiption</Option>
+            <Option>Store Information</Option>
+            <Option>Warranty</Option>
+            <Option>About Shipment</Option>
+            <Option>About the Order</Option>
+            <Option>Returns and Refunds</Option>
+            <Option>About Cancellation</Option>
+            <Option>About My Account</Option>
+            <Option>Other Concerns</Option>
+          </Select>
+        </div>
+      ) : (
+        <div className="flex flex-col w-full gap-3 mb-5">
+          <label className=" font-Roboto font-bold text-[18px]">
+            Concern/s
+          </label>
+          <Select color="red" label="Enter Concerns">
+            <Option>About My Account</Option>
+            <Option>About the Process</Option>
+            <Option>About the Packaging</Option>
+            <Option>Claims and Payment</Option>
+            <Option>About the Order</Option>
+            <Option>Returns and Refunds</Option>
+            <Option>Other Concerns</Option>
+          </Select>
+        </div>
+      )}
+
+
+{/* Concern/s Description */}
 
       <div className="flex flex-col w-full gap-3 mt-5 mb-5">
         <label className=" font-Roboto font-bold text-[18px]">
@@ -223,6 +254,8 @@ const Form = () => {
 
         <Textarea color="red" label="Enter your concerns description" />
       </div>
+
+
 
       <div className="flex flex-col w-full gap-3 mt-5 mb-10">
         <label className=" font-Roboto font-bold text-[18px]">
