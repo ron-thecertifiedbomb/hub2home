@@ -102,7 +102,6 @@ const Form = () => {
     {buyer === "" ? setErrorBuyer(true) : ''}
     {seller === "" ? setErrorSeller(true) : ''}
 
-    
     {name && contactNumber && emailAddress && buyerTrue && sellerTrue ? sendEmail() : stayOnThisPage() }
 
     setStoreName("");
@@ -117,12 +116,6 @@ const Form = () => {
     setErrorSeller(false);
   };
 
-  // function isAlphanumeric(input) {
-  //   const regex = /^[a-zA-Z0-9]+$/;
-  //   return regex.test(input);
-  // }
-  // console.log(isAlphanumeric(contactNumber)); 
-  
   console.log(`I am a: ${buyer}`);
   console.log(`I am a: ${seller}`);
   console.log(`Complete Name: ${name}`);
