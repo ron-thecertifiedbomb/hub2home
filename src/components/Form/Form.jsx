@@ -2,29 +2,32 @@ import React, { useState, useEffect } from "react";
 import { Radio } from "@material-tailwind/react";
 import { Select, Option, Textarea, Input } from "@material-tailwind/react";
 import { BsCardImage } from "react-icons/bs";
+import {Buyer, Seller} from '../../constants/constants';
+
 
 const Form = () => {
-
+  
   const [buyer, setBuyer] = useState("");
   const [seller, setSeller] = useState("");
-
   const [name, setName] = useState("");
   const [storeName, setStoreName] = useState("");
   const [contactNumber, setContactNumber] = useState("");
   const [emailAddress, setEmailAddress] = useState("");
+  const [concernAndDescription, setConcernAndDescription] = useState("");
+  const [buyersValueConcern, setBuyersValueConcern] = useState("");
+  const [sellersValueConcern, setSellerssValueConcern] = useState("");
 
   const [errorBuyer, setErrorBuyer] = useState(false);
   const [errorSeller, setErrorSeller] = useState(false);
   const [errorName, setErrorName] = useState(false);
   const [errorContactNumber, setErrorContactNumber] = useState(false);
-  const [errorEmailAddress, seterrorEmailAddress] = useState(false);
+  const [errorEmailAddress, setErrorEmailAddress] = useState(false);
 
   useEffect(() => {
     setName("");
     setContactNumber("");
     setEmailAddress("");
   }, [errorName, errorContactNumber, errorEmailAddress]);
-
 
   const onOptionChangeBuyer = (e) => {
     setBuyer(e.target.value);
@@ -33,7 +36,6 @@ const Form = () => {
     setErrorSeller(false);
   };
 
-
   const onOptionChangeSeller = (e) => {
     setSeller(e.target.value);
     setBuyer("");
@@ -41,12 +43,20 @@ const Form = () => {
     setErrorSeller(false);
   };
 
+  const selectBuyerConcern = (e) => {
+    setBuyersValueConcern(e);
+  };
+  const selectSellerConcern = (e) => {
+    setSellerssValueConcern(e);
+  };
 
   const handleSubmit = (e) => {
+
     e.preventDefault();
     setName(e.target.value);
     setContactNumber(e.target.value);
     setEmailAddress(e.target.value);
+    setConcernAndDescription(e.target.value);
 
     {
       name === "" ? setErrorName(true) : setName("");
@@ -55,7 +65,7 @@ const Form = () => {
       contactNumber === "" ? setErrorContactNumber(true) : setContactNumber("");
     }
     {
-      emailAddress === "" ? seterrorEmailAddress(true) : setEmailAddress("");
+      emailAddress === "" ? setErrorEmailAddress(true) : setEmailAddress("");
     }
     {
       buyer === "" ? setErrorBuyer(true) : "";
@@ -63,16 +73,17 @@ const Form = () => {
     {
       seller === "" ? setErrorSeller(true) : "";
     }
-    setStoreName("");
-  };
 
+    setStoreName("");
+    setConcernAndDescription("");
+  };
 
   const handleFocus = () => {
     setErrorName(false);
     setErrorContactNumber(false);
-    seterrorEmailAddress(false);
-    seterrorBuyer(false);
-    seterrorSeller(false);
+    setErrorEmailAddress(false);
+    setErrorBuyer(false);
+    setErrorSeller(false);
   };
 
   console.log(`selected: ${buyer}`);
@@ -80,53 +91,62 @@ const Form = () => {
   console.log(`name: ${name}`);
   console.log(`contact number: ${contactNumber}`);
   console.log(`email address: ${emailAddress}`);
+  console.log(`store name: ${storeName}`);
+  console.log(`concern and description: ${concernAndDescription}`);
+  console.log(`selected concern: ${buyersValueConcern}`);
+  console.log(`selected concern: ${sellersValueConcern}`);
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className=" p-5 pt-[70px] mb-40 max-w-[1020px] w-full m-auto  md:p-2px lg:pt-[86px]"
-    >
-      <h1 className=" font-Roboto font-bold text-[18px]">I am a</h1>
+    <form onSubmit={handleSubmit} className="p-5 pt-[70px] mb-40 max-w-[1020px] w-full m-auto  md:p-2px lg:pt-[86px]">
+      <h1 className="font-Roboto text-[18px]">I am a</h1>
 
       <div className="flex sm:gap-25 md:gap-[35px] mt-[15px] mb-[15px]">
         <div className="flex sm:gap-1 justify-center items-center md:gap-2">
+         
           <Radio
             type="radio"
             id="buyer"
             name="buyer"
             color="red"
             value="Buyer"
-            checked={buyer === "Buyer"}
+            checked={buyer === Buyer}
             onChange={onOptionChangeBuyer}
-          />{" "}
-          <label>Buyer</label>
+          />
+
+          <label className="font-Roboto font-medium text-[18px] text-[#434343]">Buyer</label>
         </div>
+        
         <div className="flex sm:gap-2 justify-center items-center md:gap-3">
+        
           <Radio
             type="radio"
             id="seller"
             name="seller"
             color="red"
             value="Seller"
-            checked={seller === "Seller"}
+            checked={seller === Seller}
             onChange={onOptionChangeSeller}
-          />{" "}
-          <label>Seller</label>
+          />
+
+          <label className="font-Roboto font-medium text-[18px] text-[#434343]">Seller</label>
         </div>
       </div>
 
       {errorBuyer && errorSeller ? (
-        <p class=" text-red-500 text-xs italic mb-5">This field is required</p>
+        <p className=" text-red-500 text-xs italic mb-5">
+          This field is required
+        </p>
       ) : (
-        <p class="invisible text-red-500 text-xs italic mb-5">
+        <p className="invisible text-red-500 text-xs italic mb-5">
           This field is required
         </p>
       )}
 
       <div className="flex flex-col w-full gap-2 mt-5 mb-1">
-        <label className=" font-Roboto font-bold text-[18px]">
+        <label className="font-Roboto font-medium text-[18px] text-[#434343]">
           Complete Name
         </label>
+
         <Input
           color="red"
           size="md"
@@ -140,17 +160,20 @@ const Form = () => {
       </div>
 
       {errorName ? (
-        <p class=" text-red-500 text-xs italic mb-5">This field is required</p>
+        <p className=" text-red-500 text-xs italic mb-5">
+          This field is required
+        </p>
       ) : (
-        <p class="invisible text-red-500 text-xs italic mb-5">
+        <p className="invisible text-red-500 text-xs italic mb-5">
           This field is required
         </p>
       )}
 
       <div className="flex flex-col w-full gap-2 mt-5 mb-10">
-        <label className=" font-Roboto font-bold text-[18px]">
+        <label className=" font-Roboto font-medium text-[18px] text-[#434343]">
           Store Name (if applicable)
         </label>
+
         <Input
           color="red"
           size="md"
@@ -164,7 +187,7 @@ const Form = () => {
       </div>
 
       <div className="flex flex-col w-full gap-2 mt-5 mb-1">
-        <label className=" font-Roboto font-bold text-[18px]">
+        <label className=" font-Roboto font-medium text-[18px] text-[#434343]">
           Contact Number
         </label>
         <Input
@@ -179,15 +202,17 @@ const Form = () => {
         />
       </div>
       {errorContactNumber ? (
-        <p class=" text-red-500 text-xs italic mb-5">This field is required</p>
+        <p className=" text-red-500 text-xs italic mb-5">
+          This field is required
+        </p>
       ) : (
-        <p class="invisible text-red-500 text-xs italic mb-5">
+        <p className="invisible text-red-500 text-xs italic mb-5">
           This field is required
         </p>
       )}
 
       <div className="flex flex-col w-full gap-2 mt-5 mb-1">
-        <label className=" font-Roboto font-bold text-[18px]">
+        <label className=" font-Roboto font-medium text-[18px] text-[#434343]">
           Email Address
         </label>
         <Input
@@ -203,62 +228,83 @@ const Form = () => {
       </div>
 
       {errorEmailAddress ? (
-        <p class=" text-red-500 text-xs italic mb-5">This field is required</p>
+        <p className=" text-red-500 text-xs italic mb-5">
+          This field is required
+        </p>
       ) : (
-        <p class="invisible text-red-500 text-xs italic mb-5 ">
+        <p className="invisible text-red-500 text-xs italic mb-5 ">
           This field is required
         </p>
       )}
 
       {buyer ? (
         <div className="flex flex-col w-full gap-3 mb-5">
-          <label className=" font-Roboto font-bold text-[18px]">
+          <label className="font-Roboto font-medium text-[18px] text-[#434343]">
             Concern/s
           </label>
-          <Select color="red" label="Enter Concerns">
-            <Option>Product Desctiption</Option>
-            <Option>Store Information</Option>
-            <Option>Warranty</Option>
-            <Option>About Shipment</Option>
-            <Option>About the Order</Option>
-            <Option>Returns and Refunds</Option>
-            <Option>About Cancellation</Option>
-            <Option>About My Account</Option>
-            <Option>Other Concerns</Option>
+          <Select
+            color="red"
+            label="Enter Concerns"
+            onChange={selectBuyerConcern}
+            value={buyersValueConcern}
+          >
+            <Option value="product and description">Product Desctiption</Option>
+            <Option value="store information">Store Information</Option>
+            <Option value="warranty">Warranty</Option>
+            <Option value="about shipment">About Shipment</Option>
+            <Option value="about the order">About the Order</Option>
+            <Option value="returns and refunds">Returns and Refunds</Option>
+            <Option value="about cancellation">About Cancellation</Option>
+            <Option value="about my account">About My Account</Option>
+            <Option value="other concerns">Other Concerns</Option>
           </Select>
         </div>
       ) : (
-        <div className="flex flex-col w-full gap-3 mb-5">
-          <label className=" font-Roboto font-bold text-[18px]">
-            Concern/s
-          </label>
-          <Select color="red" label="Enter Concerns">
-            <Option>About My Account</Option>
-            <Option>About the Process</Option>
-            <Option>About the Packaging</Option>
-            <Option>Claims and Payment</Option>
-            <Option>About the Order</Option>
-            <Option>Returns and Refunds</Option>
-            <Option>Other Concerns</Option>
-          </Select>
-        </div>
+        ""
       )}
 
+      {seller ? (
+        <div className="flex flex-col w-full gap-3 mb-5">
+          <label className=" font-Roboto font-medium text-[18px] text-[#434343]">
+            Concern/s
+          </label>
+          <Select
+            color="red"
+            label="Enter Concerns"
+            onChange={selectSellerConcern}
+            value={sellersValueConcern}
+          >
+            <Option value="about my account">About My Account</Option>
+            <Option value="about the process">About the Process</Option>
+            <Option value="about the packaging">About the Packaging</Option>
+            <Option value="claims and payment">Claims and Payment</Option>
+            <Option value="about the order">About the Order</Option>
+            <Option value="returns and refunds">Returns and Refunds</Option>
+            <Option value="other concerns">Other Concerns</Option>
+          </Select>
+        </div>
+      ) : (
+        ""
+      )}
 
-{/* Concern/s Description */}
+      {/* Concern/s Description */}
 
       <div className="flex flex-col w-full gap-3 mt-5 mb-5">
-        <label className=" font-Roboto font-bold text-[18px]">
+        <label className=" font-Roboto font-medium text-[18px] text-[#434343]">
           Concern/sDescription
         </label>
 
-        <Textarea color="red" label="Enter your concerns description" />
+        <Textarea
+          color="red"
+          label="Enter your concerns description"
+          type="text"
+          value={concernAndDescription}
+          onChange={(e) => setConcernAndDescription(e.target.value)}
+        />
       </div>
 
-
-
       <div className="flex flex-col w-full gap-3 mt-5 mb-10">
-        <label className=" font-Roboto font-bold text-[18px]">
+        <label className=" font-Roboto font-medium text-[18px] text-[#434343]">
           Preferred Mode of Communitcation
         </label>
 
@@ -269,7 +315,7 @@ const Form = () => {
         </Select>
       </div>
 
-      <label className=" font-Roboto font-bold text-[18px]">
+      <label className="font-Roboto font-medium text-[18px] text-[#434343]">
         Image <span className=" text-red-500">(Optional)</span>
       </label>
       <BsCardImage
@@ -277,12 +323,13 @@ const Form = () => {
       />
 
       <div className="flex w-full justify-end mt-[60px]  border-gray-600 border-t-2 border-dashed border-spacing-1.5  pt-[60px] ">
+        
         <button
           type="submit"
-          className=" w-full md:w-[180px] h-[52px] bg-[#f02f1b]  rounded-md text-white"
-        >
+          className=" w-full md:w-[180px] h-[52px] bg-[#f02f1b]  rounded-md text-white">
           Submit
         </button>
+
       </div>
     </form>
   );

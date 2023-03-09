@@ -5,10 +5,11 @@ import ContactPage from './Pages/ContactPage/ContactPage'
 
 const App = () => {
   return (
+
     <div className="App">
       <NavBar />
       <ContactPage />
-      {/* <SuccessfulPage /> */}
+       {/* <SuccessfulPage /> */}
     </div>
   );
 };
