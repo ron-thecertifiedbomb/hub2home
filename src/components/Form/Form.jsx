@@ -3,7 +3,7 @@ import { Radio } from "@material-tailwind/react";
 import { Select, Option, Textarea, Input } from "@material-tailwind/react";
 import { BsCardImage } from "react-icons/bs";
 import {Buyer, Seller} from '../../constants/constants';
-
+import  styles  from "../../constants/style";
 
 const Form = () => {
   
@@ -17,9 +17,11 @@ const Form = () => {
   const [concernAndDescription, setConcernAndDescription] = useState("");
   const [buyersValueConcern, setBuyersValueConcern] = useState("");
   const [sellersValueConcern, setSellerssValueConcern] = useState("");
+  const [preferredModeOfCommunication, setPreferredModeOfCommunication] = useState("");
 
   const [errorBuyer, setErrorBuyer] = useState(false);
   const [errorSeller, setErrorSeller] = useState(false);
+
   const [errorName, setErrorName] = useState(false);
   const [errorContactNumber, setErrorContactNumber] = useState(false);
   const [errorEmailAddress, setErrorEmailAddress] = useState(false);
@@ -29,6 +31,19 @@ const Form = () => {
     setContactNumber("");
     setEmailAddress("");
   }, [errorName, errorContactNumber, errorEmailAddress]);
+
+  const inputName = (e) => {
+      setName(e.target.value); 
+  };
+  const inputStoreName = (e) => {
+    setStoreName(e.target.value); 
+  };
+  const inputContactNumber = (e) => {
+    contactNumber(e.target.value); 
+  };
+  const inputEmailAddress = (e) => {
+    setEmailAddress(e.target.value); 
+  };
 
   const onOptionChangeBuyer = (e) => {
     setBuyer(e.target.value);
@@ -51,32 +66,26 @@ const Form = () => {
     setSellerssValueConcern(e);
   };
 
-  const handleSubmit = (e) => {
+  const selectPreferredModeOfCommunication = (e) => {
+    setPreferredModeOfCommunication(e);
+  };
 
+  const handleSubmit = (e) => {
     e.preventDefault();
     setName(e.target.value);
     setContactNumber(e.target.value);
     setEmailAddress(e.target.value);
     setConcernAndDescription(e.target.value);
-
-    {
-      name === "" ? setErrorName(true) : setName("");
-    }
-    {
-      contactNumber === "" ? setErrorContactNumber(true) : setContactNumber("");
-    }
-    {
-      emailAddress === "" ? setErrorEmailAddress(true) : setEmailAddress("");
-    }
-    {
-      buyer === "" ? setErrorBuyer(true) : "";
-    }
-    {
-      seller === "" ? setErrorSeller(true) : "";
-    }
+    
+    {name === "" ? setErrorName(true) : setName("")}
+    {contactNumber === "" ? setErrorContactNumber(true) : setContactNumber("")}
+    {emailAddress === "" ? setErrorEmailAddress(true) : setEmailAddress("")}
+    {buyer === "" ? setErrorBuyer(true) : ""}
+    {seller === "" ? setErrorSeller(true) : ""}
 
     setStoreName("");
     setConcernAndDescription("");
+   
   };
 
   const handleFocus = () => {
@@ -87,8 +96,16 @@ const Form = () => {
     setErrorSeller(false);
   };
 
-  console.log(`selected: ${buyer}`);
-  console.log(`selected: ${seller}`);
+
+
+  function isAlphanumeric(input) {
+    const regex = /^[a-zA-Z0-9]+$/;
+    return regex.test(input);
+  }
+  console.log(isAlphanumeric(contactNumber)); 
+  
+  console.log(`type: ${buyer}`);
+  console.log(`type: ${seller}`);
   console.log(`name: ${name}`);
   console.log(`contact number: ${contactNumber}`);
   console.log(`email address: ${emailAddress}`);
@@ -96,6 +113,7 @@ const Form = () => {
   console.log(`concern and description: ${concernAndDescription}`);
   console.log(`selected concern: ${buyersValueConcern}`);
   console.log(`selected concern: ${sellersValueConcern}`);
+  console.log(`selected mode of communication: ${preferredModeOfCommunication}`);
 
   return (
     <form onSubmit={handleSubmit} className="p-5 pt-[70px] mb-40 max-w-[1020px] w-full m-auto  md:p-2px lg:pt-[86px]">
@@ -114,11 +132,10 @@ const Form = () => {
             onChange={onOptionChangeBuyer}
           />
 
-          <label className="font-Roboto font-medium text-[18px] text-[#434343]">Buyer</label>
+          <label className={styles.title}>Buyer</label>
         </div>
         
         <div className="flex sm:gap-2 justify-center items-center md:gap-3">
-        
           <Radio
             type="radio"
             id="seller"
@@ -129,12 +146,12 @@ const Form = () => {
             onChange={onOptionChangeSeller}
           />
 
-          <label className="font-Roboto font-medium text-[18px] text-[#434343]">Seller</label>
+          <label className={styles.title}>Seller</label>
         </div>
       </div>
 
       {errorBuyer && errorSeller ? (
-        <p className=" text-red-500 text-xs italic mb-5">
+        <p className={styles.error}>
           This field is required
         </p>
       ) : (
@@ -144,7 +161,7 @@ const Form = () => {
       )}
 
       <div className="flex flex-col w-full gap-2 mt-5 mb-1">
-        <label className="font-Roboto font-medium text-[18px] text-[#434343]">
+        <label className={styles.title}>
           Complete Name
         </label>
 
@@ -152,16 +169,19 @@ const Form = () => {
           color="red"
           size="md"
           label="Complete Name"
-          id="email address"
           type="text"
+          id="name"
+          pattern="^[a-zA-Z0-9\s]+$"
+          // pattern="/^[a-z\d\-_\s]+$/"
+          title="Please enter alphanumeric characters only"
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={inputName}  
           onFocus={handleFocus}
         />
       </div>
 
       {errorName ? (
-        <p className=" text-red-500 text-xs italic mb-5">
+        <p className={styles.error}>
           This field is required
         </p>
       ) : (
@@ -171,7 +191,7 @@ const Form = () => {
       )}
 
       <div className="flex flex-col w-full gap-2 mt-5 mb-10">
-        <label className=" font-Roboto font-medium text-[18px] text-[#434343]">
+        <label className={styles.title}>
           Store Name (if applicable)
         </label>
 
@@ -179,31 +199,33 @@ const Form = () => {
           color="red"
           size="md"
           label="Enter your store name"
-          id="email address"
+          id="store name"
           type="text"
+          pattern="/^[a-z\d\-_\@\s]+$/"
           value={storeName}
-          onChange={(e) => setStoreName(e.target.value)}
+          onChange={inputStoreName}
           onFocus={handleFocus}
         />
       </div>
 
       <div className="flex flex-col w-full gap-2 mt-5 mb-1">
-        <label className=" font-Roboto font-medium text-[18px] text-[#434343]">
+        <label className={styles.title}>
           Contact Number
         </label>
+
         <Input
           color="red"
           size="md"
           label="Enter your contact number"
-          id="email address"
-          type="text"
+          id="contact-number"
+          type="number"
           value={contactNumber}
-          onChange={(e) => setContactNumber(e.target.value)}
+          onChange={inputContactNumber}
           onFocus={handleFocus}
         />
       </div>
       {errorContactNumber ? (
-        <p className=" text-red-500 text-xs italic mb-5">
+        <p className={styles.error}>
           This field is required
         </p>
       ) : (
@@ -213,7 +235,7 @@ const Form = () => {
       )}
 
       <div className="flex flex-col w-full gap-2 mt-5 mb-1">
-        <label className=" font-Roboto font-medium text-[18px] text-[#434343]">
+        <label className={styles.title}>
           Email Address
         </label>
         <Input
@@ -221,15 +243,15 @@ const Form = () => {
           size="md"
           label="Enter your email address"
           id="email address"
-          type="text"
+          type="email"
           value={emailAddress}
-          onChange={(e) => setEmailAddress(e.target.value)}
+          onChange={inputEmailAddress}
           onFocus={handleFocus}
         />
       </div>
 
       {errorEmailAddress ? (
-        <p className=" text-red-500 text-xs italic mb-5">
+        <p className={styles.error}>
           This field is required
         </p>
       ) : (
@@ -240,7 +262,7 @@ const Form = () => {
 
       {buyer ? (
         <div className="flex flex-col w-full gap-3 mb-5">
-          <label className="font-Roboto font-medium text-[18px] text-[#434343]">
+          <label className={styles.title}>
             Concern/s
           </label>
           <Select
@@ -266,7 +288,7 @@ const Form = () => {
 
       {seller ? (
         <div className="flex flex-col w-full gap-3 mb-5">
-          <label className=" font-Roboto font-medium text-[18px] text-[#434343]">
+          <label className={styles.title}>
             Concern/s
           </label>
           <Select
@@ -291,7 +313,7 @@ const Form = () => {
       {/* Concern/s Description */}
 
       <div className="flex flex-col w-full gap-3 mt-5 mb-5">
-        <label className=" font-Roboto font-medium text-[18px] text-[#434343]">
+        <label className={styles.title}>
           Concern/sDescription
         </label>
 
@@ -309,14 +331,14 @@ const Form = () => {
           Preferred Mode of Communitcation
         </label>
 
-        <Select color="red" label="Enter Concerns">
-          <Option>Phone Call</Option>
-          <Option>Text Message</Option>
-          <Option>Email</Option>
+        <Select color="red" label="Enter Concerns" onChange={selectPreferredModeOfCommunication}value={preferredModeOfCommunication}>
+          <Option value="phone call">Phone Call</Option>
+          <Option value="tet message">Text Message</Option>
+          <Option value="email">Email</Option>
         </Select>
       </div>
 
-      <label className="font-Roboto font-medium text-[18px] text-[#434343]">
+      <label className={styles.title}>
         Image <span className=" text-red-500">(Optional)</span>
       </label>
       <BsCardImage
@@ -327,11 +349,13 @@ const Form = () => {
         
         <button
           type="submit"
-          className=" w-full md:w-[180px] h-[52px] bg-[#f02f1b]  rounded-md text-white">
+          className="w-full md:w-[180px] h-[52px] bg-[#f02f1b]  rounded-md text-white">
           Submit
         </button>
 
       </div>
+
+      
     </form>
   );
 };
