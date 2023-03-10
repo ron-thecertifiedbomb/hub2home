@@ -1,8 +1,14 @@
 import React from "react";
 import Logo from "../../assets/h2h-logo.svg";
 import Title from "../../assets/h2h-lm (1).svg";
+import { useNavigate } from "react-router-dom";
 
 const SuccessfulPageHero = () => {
+  const navigate = useNavigate();
+
+  const backToHome = () => {
+    navigate("/");
+  };
 
   return (
     <section className="  flex flex-col gap-4 justify-center items-center">
@@ -16,7 +22,14 @@ const SuccessfulPageHero = () => {
         <h1 className=" mt-[24px] font-Roboto text-[11px] md:text-[18px] font-normal  text-[#ffffff tracking-tight">
           We received your message and we'll get back to you as soon as we can!
         </h1>
-        <button className=" flex w-full md:w-[240px] h-[52px] justify-center items-center bg-[#f02f1b] mt-[46px] rounded "><h1 className=" font-Roboto text-[16px] tracking-normal text-white">Go back to home page</h1></button>
+        <button
+          className=" flex w-full md:w-[240px] h-[52px] justify-center items-center bg-[#f02f1b] mt-[46px] rounded "
+          onClick={backToHome}
+        >
+          <h1 className=" font-Roboto text-[16px] tracking-normal text-white">
+            Go back to home page
+          </h1>
+        </button>
       </div>
     </section>
   );
