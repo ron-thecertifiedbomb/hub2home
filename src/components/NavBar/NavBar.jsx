@@ -1,6 +1,9 @@
 import React from "react";
 import Logo from "../../assets/logo.svg";
 import styles from "../../constants/style";
+import { navLinks } from "../../constants/navlink";
+import { NavLink } from "react-router-dom";
+
 
 const NavBar = () => {
   return (
@@ -9,11 +12,9 @@ const NavBar = () => {
         <img src={Logo} alt="logo" className="w-[150px] md:w-[204px]"></img>
 
         <ul className="hidden md:flex gap-[22px] ">
-          <li className={styles.link}>Home</li>
-          <li className={styles.link}>Privacy and Policy</li>
-          <li className={styles.link}>FAQs</li>
-          <li className={styles.link}>Terms and Condition</li>
-          <li className={styles.link}>Contact Us</li>
+        {navLinks.map((item, index) => (
+          <NavLink to={item.to}><li className={styles.link} key={index}>{item.link}</li></NavLink>
+          ))}
         </ul>
       </nav>
     </section>
