@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from "react";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 import { Radio } from "@material-tailwind/react";
 import { Select, Option, Textarea, Input } from "@material-tailwind/react";
-import { BsCardImage } from "react-icons/bs";
-import {Buyer, Seller} from '../../constants/constants';
-import  styles  from "../../constants/style";
-
+import { Buyer, Seller } from "../../constants/constants";
+import styles from "../../constants/style";
+import ImageUpload from "../ImageUpload/ImageUpload";
 
 const Form = () => {
-
   const navigate = useNavigate();
-  
-  const [buyer, setBuyer] = useState('');
-  const [seller, setSeller] = useState('');
+
+  const [buyer, setBuyer] = useState("");
+  const [seller, setSeller] = useState("");
   const [name, setName] = useState("");
   const [storeName, setStoreName] = useState("");
   const [contactNumber, setContactNumber] = useState("");
@@ -21,10 +19,11 @@ const Form = () => {
   const [concernAndDescription, setConcernAndDescription] = useState("");
   const [buyersValueConcern, setBuyersValueConcern] = useState("");
   const [sellersValueConcern, setSellerssValueConcern] = useState("");
-  const [preferredModeOfCommunication, setPreferredModeOfCommunication] = useState("");
+  const [preferredModeOfCommunication, setPreferredModeOfCommunication] =
+    useState("");
 
-  const [buyerTrue, setBuyerTrue] = useState(false)
-  const [sellerTrue, setSellerTrue] = useState(false)
+  const [buyerTrue, setBuyerTrue] = useState(false);
+  const [sellerTrue, setSellerTrue] = useState(false);
 
   const [errorBuyer, setErrorBuyer] = useState(false);
   const [errorSeller, setErrorSeller] = useState(false);
@@ -40,30 +39,30 @@ const Form = () => {
   }, [errorName, errorContactNumber, errorEmailAddress]);
 
   const inputName = (e) => {
-      setName(e.target.value); 
+    setName(e.target.value);
   };
   const inputStoreName = (e) => {
-    setStoreName(e.target.value); 
+    setStoreName(e.target.value);
   };
   const inputContactNumber = (e) => {
-    setContactNumber(e.target.value); 
+    setContactNumber(e.target.value);
   };
   const inputEmailAddress = (e) => {
-    setEmailAddress(e.target.value); 
+    setEmailAddress(e.target.value);
   };
 
   const onOptionChangeBuyer = (e) => {
     setBuyer(e.target.value);
     setBuyerTrue(true);
-    setSellerTrue(true)
-    setSeller('');
+    setSellerTrue(true);
+    setSeller("");
   };
 
   const onOptionChangeSeller = (e) => {
     setSeller(e.target.value);
     setBuyerTrue(true);
     setSellerTrue(true);
-    setBuyer('');
+    setBuyer("");
   };
 
   const selectBuyerConcern = (e) => {
@@ -77,17 +76,16 @@ const Form = () => {
     setPreferredModeOfCommunication(e);
   };
 
- const sendEmail = () => {
-  navigate("/success")
-  console.log('We will send this information')
-  alert('We will send this information')
- }
+  const sendEmail = () => {
+    navigate("/success");
+    console.log("We will send this information");
+    alert("We will send this information");
+  };
 
- const stayOnThisPage = () => {
-  
-  console.log('stay on this page')
-  alert('stay on this page')
- }
+  const stayOnThisPage = () => {
+    console.log("stay on this page");
+    alert("stay on this page");
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -95,14 +93,28 @@ const Form = () => {
     setContactNumber(e.target.value);
     setEmailAddress(e.target.value);
     setConcernAndDescription(e.target.value);
-    
-    {name === "" ? setErrorName(true) : setName("")}
-    {contactNumber === "" ? setErrorContactNumber(true) : setContactNumber("")}
-    {emailAddress === "" ? setErrorEmailAddress(true) : setEmailAddress("")}
-    {buyer === "" ? setErrorBuyer(true) : ''}
-    {seller === "" ? setErrorSeller(true) : ''}
 
-    {name && contactNumber && emailAddress && buyerTrue && sellerTrue ? sendEmail() : stayOnThisPage() }
+    {
+      name === "" ? setErrorName(true) : setName("");
+    }
+    {
+      contactNumber === "" ? setErrorContactNumber(true) : setContactNumber("");
+    }
+    {
+      emailAddress === "" ? setErrorEmailAddress(true) : setEmailAddress("");
+    }
+    {
+      buyer === "" ? setErrorBuyer(true) : "";
+    }
+    {
+      seller === "" ? setErrorSeller(true) : "";
+    }
+
+    {
+      name && contactNumber && emailAddress && buyerTrue && sellerTrue
+        ? sendEmail()
+        : stayOnThisPage();
+    }
 
     setStoreName("");
     setConcernAndDescription("");
@@ -125,18 +137,20 @@ const Form = () => {
   console.log(`Concern/s: ${buyersValueConcern}`);
   console.log(`Concern/s: ${sellersValueConcern}`);
   console.log(`Concern/s and Description: ${concernAndDescription}`);
-  console.log(`Preferred Mode of Communication: ${preferredModeOfCommunication}`);
+  console.log(
+    `Preferred Mode of Communication: ${preferredModeOfCommunication}`
+  );
   // console.log(`buyer status: ${buyerTrue}`);
   // console.log(`seller status: ${sellerTrue}`);
   return (
-
-    
-    <form onSubmit={handleSubmit} className="p-5 pt-[70px] mb-40 max-w-[1020px] w-full m-auto  md:p-2px lg:pt-[86px]">
+    <form
+      onSubmit={handleSubmit}
+      className="p-5 pt-[70px] mb-40 max-w-[1020px] w-full m-auto  md:p-2px lg:pt-[86px]"
+    >
       <h1 className="font-Roboto text-[18px]">I am a</h1>
 
       <div className="flex sm:gap-25 md:gap-[35px] mt-[15px] mb-[15px]">
         <div className="flex sm:gap-1 justify-center items-center md:gap-2">
-         
           <Radio
             type="radio"
             id="buyer"
@@ -149,7 +163,7 @@ const Form = () => {
 
           <label className={styles.title}>Buyer</label>
         </div>
-        
+
         <div className="flex sm:gap-2 justify-center items-center md:gap-3">
           <Radio
             type="radio"
@@ -166,9 +180,7 @@ const Form = () => {
       </div>
 
       {errorBuyer && errorSeller ? (
-        <p className={styles.error}>
-          This field is required
-        </p>
+        <p className={styles.error}>This field is required</p>
       ) : (
         <p className="invisible text-red-500 text-xs italic mb-5">
           This field is required
@@ -176,9 +188,7 @@ const Form = () => {
       )}
 
       <div className="flex flex-col w-full gap-2 mt-5 mb-1">
-        <label className={styles.title}>
-          Complete Name
-        </label>
+        <label className={styles.title}>Complete Name</label>
 
         <Input
           color="red"
@@ -187,18 +197,15 @@ const Form = () => {
           type="text"
           id="name"
           pattern="^[a-zA-Z0-9\s\'\]+$"
-         
           title="Please enter alphanumeric characters only"
           value={name}
-          onChange={inputName}  
+          onChange={inputName}
           onFocus={handleFocus}
         />
       </div>
 
       {errorName ? (
-        <p className={styles.error}>
-          This field is required
-        </p>
+        <p className={styles.error}>This field is required</p>
       ) : (
         <p className="invisible text-red-500 text-xs italic mb-5">
           This field is required
@@ -206,9 +213,7 @@ const Form = () => {
       )}
 
       <div className="flex flex-col w-full gap-2 mt-5 mb-10">
-        <label className={styles.title}>
-          Store Name (if applicable)
-        </label>
+        <label className={styles.title}>Store Name (if applicable)</label>
 
         <Input
           color="red"
@@ -224,9 +229,7 @@ const Form = () => {
       </div>
 
       <div className="flex flex-col w-full gap-2 mt-5 mb-1">
-        <label className={styles.title}>
-          Contact Number
-        </label>
+        <label className={styles.title}>Contact Number</label>
 
         <Input
           color="red"
@@ -240,9 +243,7 @@ const Form = () => {
         />
       </div>
       {errorContactNumber ? (
-        <p className={styles.error}>
-          This field is required
-        </p>
+        <p className={styles.error}>This field is required</p>
       ) : (
         <p className="invisible text-red-500 text-xs italic mb-5">
           This field is required
@@ -250,9 +251,7 @@ const Form = () => {
       )}
 
       <div className="flex flex-col w-full gap-2 mt-5 mb-1">
-        <label className={styles.title}>
-          Email Address
-        </label>
+        <label className={styles.title}>Email Address</label>
         <Input
           color="red"
           size="md"
@@ -266,9 +265,7 @@ const Form = () => {
       </div>
 
       {errorEmailAddress ? (
-        <p className={styles.error}>
-          This field is required
-        </p>
+        <p className={styles.error}>This field is required</p>
       ) : (
         <p className="invisible text-red-500 text-xs italic mb-5 ">
           This field is required
@@ -277,9 +274,7 @@ const Form = () => {
 
       {buyer ? (
         <div className="flex flex-col w-full gap-3 mb-5">
-          <label className={styles.title}>
-            Concern/s
-          </label>
+          <label className={styles.title}>Concern/s</label>
           <Select
             color="red"
             label="Enter Concerns"
@@ -303,9 +298,7 @@ const Form = () => {
 
       {seller ? (
         <div className="flex flex-col w-full gap-3 mb-5">
-          <label className={styles.title}>
-            Concern/s
-          </label>
+          <label className={styles.title}>Concern/s</label>
           <Select
             color="red"
             label="Enter Concerns"
@@ -328,9 +321,7 @@ const Form = () => {
       {/* Concern/s Description */}
 
       <div className="flex flex-col w-full gap-3 mt-5 mb-5">
-        <label className={styles.title}>
-          Concern/sDescription
-        </label>
+        <label className={styles.title}>Concern/sDescription</label>
 
         <Textarea
           color="red"
@@ -346,31 +337,28 @@ const Form = () => {
           Preferred Mode of Communitcation
         </label>
 
-        <Select color="red" label="Enter Concerns" onChange={selectPreferredModeOfCommunication}value={preferredModeOfCommunication}>
+        <Select
+          color="red"
+          label="Enter Concerns"
+          onChange={selectPreferredModeOfCommunication}
+          value={preferredModeOfCommunication}
+        >
           <Option value="phone call">Phone Call</Option>
           <Option value="tet message">Text Message</Option>
           <Option value="email">Email</Option>
         </Select>
       </div>
 
-      <label className={styles.title}>
-        Image <span className=" text-red-500">(Optional)</span>
-      </label>
-      <BsCardImage
-        style={{ color: "grey", fontSize: "45px", marginTop: "5px" }}
-      />
+      <ImageUpload />
 
-      <div className="flex w-full justify-end mt-[60px]  border-gray-600 border-t-2 border-dashed border-spacing-1.5  pt-[60px] ">
-        
+      <div className="flex w-full justify-end mt-[60.7px]  border-gray-600 border-t-2 border-dashed border-spacing-1.5  pt-[60px] ">
         <button
           type="submit"
-          className="w-full md:w-[180px] h-[52px] bg-[#f02f1b]  rounded-md text-white">
+          className="w-full md:w-[180px] h-[52px] bg-[#f02f1b]  rounded-md text-white"
+        >
           Submit
         </button>
-
       </div>
-
-      
     </form>
   );
 };
