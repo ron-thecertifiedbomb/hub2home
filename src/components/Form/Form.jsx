@@ -19,8 +19,7 @@ const Form = () => {
   const [concernAndDescription, setConcernAndDescription] = useState("");
   const [buyersValueConcern, setBuyersValueConcern] = useState("");
   const [sellersValueConcern, setSellerssValueConcern] = useState("");
-  const [preferredModeOfCommunication, setPreferredModeOfCommunication] =
-    useState("");
+  const [preferredModeOfCommunication, setPreferredModeOfCommunication] = useState("");
 
   const [buyerTrue, setBuyerTrue] = useState(false);
   const [sellerTrue, setSellerTrue] = useState(false);
@@ -31,12 +30,17 @@ const Form = () => {
   const [errorName, setErrorName] = useState(false);
   const [errorContactNumber, setErrorContactNumber] = useState(false);
   const [errorEmailAddress, setErrorEmailAddress] = useState(false);
+  const [errorConcernAndDescription, setErrorConcernAndDescription] = useState(false);
+
+  const [errorBuyersValueConcern, setErrorBuyersValueConcern] = useState(false);
+  const [errorSellersValueConcern, setErrorSellersValueConcern] = useState(false);
+  const [errorPreferredModeOfCommunication, setErrorPreferredModeOfCommunication] = useState(false);
 
   useEffect(() => {
     setName("");
     setContactNumber("");
     setEmailAddress("");
-  }, [errorName, errorContactNumber, errorEmailAddress]);
+  }, [errorName, errorContactNumber, errorEmailAddress,]);
 
   const inputName = (e) => {
     setName(e.target.value);
@@ -87,34 +91,44 @@ const Form = () => {
     alert("stay on this page");
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmitBuyer = (e) => {
     e.preventDefault();
     setName(e.target.value);
     setContactNumber(e.target.value);
     setEmailAddress(e.target.value);
     setConcernAndDescription(e.target.value);
 
-    {
-      name === "" ? setErrorName(true) : setName("");
-    }
-    {
-      contactNumber === "" ? setErrorContactNumber(true) : setContactNumber("");
-    }
-    {
-      emailAddress === "" ? setErrorEmailAddress(true) : setEmailAddress("");
-    }
-    {
-      buyer === "" ? setErrorBuyer(true) : "";
-    }
-    {
-      seller === "" ? setErrorSeller(true) : "";
-    }
+    {name === "" ? setErrorName(true) : setName("");}
+    {contactNumber === "" ? setErrorContactNumber(true) : setContactNumber("");}
+    {emailAddress === "" ? setErrorEmailAddress(true) : setEmailAddress("");}
+    {buyer === "" ? setErrorBuyer(true) : "";}
+    {seller === "" ? setErrorSeller(true) : "";}
+    {concernAndDescription === "" ? setErrorConcernAndDescription(true) : "";}
+    {buyersValueConcern === ""? setErrorBuyersValueConcern(true) : setErrorBuyersValueConcern(false);}
+    {sellersValueConcern === "" ? setErrorSellersValueConcern(true): setErrorSellersValueConcern(false);}
+    {preferredModeOfCommunication === ""? setErrorPreferredModeOfCommunication(true): setErrorPreferredModeOfCommunication(false);}
+    {( name && contactNumber && emailAddress && concernAndDescription && buyerTrue && sellerTrue && preferredModeOfCommunication && buyersValueConcern ) ? sendEmail(): stayOnThisPage();}
+    setStoreName("");
+    setConcernAndDescription("");
+  };
 
-    {
-      name && contactNumber && emailAddress && buyerTrue && sellerTrue
-        ? sendEmail()
-        : stayOnThisPage();
-    }
+  const handleSubmitSeller = (e) => {
+    e.preventDefault();
+    setName(e.target.value);
+    setContactNumber(e.target.value);
+    setEmailAddress(e.target.value);
+    setConcernAndDescription(e.target.value);
+
+    {name === "" ? setErrorName(true) : setName("")}
+    {contactNumber === "" ? setErrorContactNumber(true) : setContactNumber("");}
+    {emailAddress === "" ? setErrorEmailAddress(true) : setEmailAddress("");}
+    {buyer === "" ? setErrorBuyer(true) : "";}
+    {seller === "" ? setErrorSeller(true) : "";}
+    {concernAndDescription === "" ? setErrorConcernAndDescription(true) : "";}
+    {buyersValueConcern === "" ? setErrorBuyersValueConcern(true): setErrorBuyersValueConcern(false);}
+    {sellersValueConcern === ""? setErrorSellersValueConcern(true): setErrorSellersValueConcern(false);}
+    {preferredModeOfCommunication === ""? setErrorPreferredModeOfCommunication(true): setErrorPreferredModeOfCommunication(false);}
+    {( name && contactNumber && emailAddress && concernAndDescription && buyerTrue && sellerTrue && preferredModeOfCommunication && sellersValueConcern ) ? sendEmail(): stayOnThisPage();}
 
     setStoreName("");
     setConcernAndDescription("");
@@ -126,6 +140,10 @@ const Form = () => {
     setErrorEmailAddress(false);
     setErrorBuyer(false);
     setErrorSeller(false);
+    setErrorConcernAndDescription(false);
+    setErrorSellersValueConcern(false);
+    setErrorBuyersValueConcern(false);
+    setErrorPreferredModeOfCommunication(false)
   };
 
   console.log(`I am a: ${buyer}`);
@@ -137,18 +155,17 @@ const Form = () => {
   console.log(`Concern/s: ${buyersValueConcern}`);
   console.log(`Concern/s: ${sellersValueConcern}`);
   console.log(`Concern/s and Description: ${concernAndDescription}`);
-  console.log(
-    `Preferred Mode of Communication: ${preferredModeOfCommunication}`
-  );
-  // console.log(`buyer status: ${buyerTrue}`);
-  // console.log(`seller status: ${sellerTrue}`);
+  console.log(`Preferred Mode of Communication: ${preferredModeOfCommunication}`);
+
+  console.log(`buyer status: ${buyerTrue}`);
+  console.log(`seller status: ${sellerTrue}`);
+
   return (
     <form
-      onSubmit={handleSubmit}
-      className="p-5 pt-[70px] mb-40 max-w-[1020px] w-full m-auto  md:p-2px lg:pt-[86px]"
-    >
+      onSubmit={buyer? handleSubmitBuyer : handleSubmitSeller}
+      className="p-5 pt-[70px] mb-40 max-w-[1020px] w-full m-auto  md:p-2px lg:pt-[86px]">
+      
       <h1 className="font-Roboto text-[18px]">I am a</h1>
-
       <div className="flex sm:gap-25 md:gap-[35px] mt-[15px] mb-[15px]">
         <div className="flex sm:gap-1 justify-center items-center md:gap-2">
           <Radio
@@ -236,7 +253,7 @@ const Form = () => {
           size="md"
           label="Enter your contact number"
           id="contact-number"
-          type="number"
+          type="tel"
           value={contactNumber}
           onChange={inputContactNumber}
           onFocus={handleFocus}
@@ -280,6 +297,7 @@ const Form = () => {
             label="Enter Concerns"
             onChange={selectBuyerConcern}
             value={buyersValueConcern}
+            onFocus={handleFocus}
           >
             <Option value="product and description">Product Desctiption</Option>
             <Option value="store information">Store Information</Option>
@@ -291,6 +309,14 @@ const Form = () => {
             <Option value="about my account">About My Account</Option>
             <Option value="other concerns">Other Concerns</Option>
           </Select>
+
+          {errorBuyersValueConcern ? (
+            <p className={styles.error}>This field is required</p>
+          ) : (
+            <p className="invisible text-red-500 text-xs italic mb-1 ">
+              This field is required
+            </p>
+          )}
         </div>
       ) : (
         ""
@@ -304,6 +330,7 @@ const Form = () => {
             label="Enter Concerns"
             onChange={selectSellerConcern}
             value={sellersValueConcern}
+            onFocus={handleFocus}
           >
             <Option value="about my account">About My Account</Option>
             <Option value="about the process">About the Process</Option>
@@ -313,6 +340,14 @@ const Form = () => {
             <Option value="returns and refunds">Returns and Refunds</Option>
             <Option value="other concerns">Other Concerns</Option>
           </Select>
+
+          {errorSellersValueConcern ? (
+            <p className={styles.error}>This field is required</p>
+          ) : (
+            <p className="invisible text-red-500 text-xs italic mb-1 ">
+              This field is required
+            </p>
+          )}
         </div>
       ) : (
         ""
@@ -320,7 +355,7 @@ const Form = () => {
 
       {/* Concern/s Description */}
 
-      <div className="flex flex-col w-full gap-3 mt-5 mb-5">
+      <div className="flex flex-col w-full gap-3 mb-1">
         <label className={styles.title}>Concern/sDescription</label>
 
         <Textarea
@@ -329,10 +364,19 @@ const Form = () => {
           type="text"
           value={concernAndDescription}
           onChange={(e) => setConcernAndDescription(e.target.value)}
+          onFocus={handleFocus}
         />
+
+        {errorConcernAndDescription ? (
+          <p className={styles.error}>This field is required</p>
+        ) : (
+          <p className="invisible text-red-500 text-xs italic mb-2 ">
+            This field is required
+          </p>
+        )}
       </div>
 
-      <div className="flex flex-col w-full gap-3 mt-5 mb-10">
+      <div className="flex flex-col w-full gap-3 mb-10">
         <label className=" font-Roboto font-medium text-[18px] text-[#434343]">
           Preferred Mode of Communitcation
         </label>
@@ -342,11 +386,20 @@ const Form = () => {
           label="Enter Concerns"
           onChange={selectPreferredModeOfCommunication}
           value={preferredModeOfCommunication}
+          onFocus={handleFocus}
         >
           <Option value="phone call">Phone Call</Option>
           <Option value="tet message">Text Message</Option>
           <Option value="email">Email</Option>
         </Select>
+
+        {errorPreferredModeOfCommunication ? (
+            <p className={styles.error}>This field is required</p>
+          ) : (
+            <p className="invisible text-red-500 text-xs italic mb-1 ">
+              This field is required
+            </p>
+          )}
       </div>
 
       <ImageUpload />

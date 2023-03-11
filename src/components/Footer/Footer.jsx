@@ -27,16 +27,20 @@ const footer = () => {
           </section>
 
           <section>
-            
-            <ul className=" hidden md:flex gap-6 items-center mb-[41px]">
+
+
+            <section className=" hidden md:flex gap-6 items-center mb-[41px]" >
               {footerLinks.map((item, index) => (
+            <ul className=" hidden md:flex gap-6 items-center mb-[41px]" key={index}>
                 
                <Link to={item.to}> <li className="font-Roboto text-[18px] text-[#ffffff] font-medium tracking-normal cursor-pointer"
-                  key={index}> {item.link}
+                  > {item.link}
                 </li>
                 </Link>
-              ))}
             </ul>
+              ))}
+
+            </section>
 
             <p className=" font-Roboto leading-3 text-[14px] p-2 text-[#ffffff] md:text-[18px] font-medium tracking-normal md:text-right">
             For immediate concerns, email us at
