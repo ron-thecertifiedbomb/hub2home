@@ -3,8 +3,8 @@ import SuccessfulPageHero from "../../components/SuccessfulPageHero/SuccessfulPa
 import GoToTop from "../../components/GoToTop/GoToTop";
 const SuccessfulPage = () => {
   return (
-    <main className="w-full h-screen bg-[#FFF7F3]">
-      <section className="flex justify-center items-center max-w-[1140px] w-full h-screen m-auto bg-[#FFF7F3]">
+    <main className="w-full h-screen bg-[#ffffff]">
+      <section className="flex justify-center items-center max-w-[1140px] w-full h-screen m-auto bg-[#ffffff]">
         <SuccessfulPageHero />
         <GoToTop />
       </section>
