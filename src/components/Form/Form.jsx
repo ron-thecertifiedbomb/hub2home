@@ -409,14 +409,13 @@ const Form = () => {
 
       <ImageUpload />
 
-      <div className="flex w-full justify-end mt-[60.7px]  border-gray-600 border-t-2 border-dashed border-spacing-1.5  pt-[60px] relative ">
-        <img className="absolute top-[150px] md:-[150px]" src={Captcha} alt="captchalogo"></img>
+      <div className="flex flex-col-reverse justify-start w-full gap-5 md:flex-row-reverse md:justify-between md:items-center mt-[60.7px]  border-gray-600 border-t-2 border-dashed border-spacing-1.5  pt-[60px]">
+        <img  src={Captcha} alt="captchalogo" className="w-[250px] md:w-[280px]"></img>
         <button
           type="submit"
-          className="w-full md:w-[180px] h-[52px] bg-[#f02f1b]  rounded-md text-white">
+          className="w-full  md:w-[180px] h-[52px] bg-[#f02f1b]  rounded-md text-white">
           Submit
         </button>
-
       </div>
     </form>
   );
