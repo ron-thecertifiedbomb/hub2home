@@ -7,8 +7,10 @@ import ContactPage from "./Pages/ContactPage/ContactPage";
 import "./App.css";
 
 const App = () => {
+
   return (
     <div className="App">
+      
       <NavBar />
       <Routes>
 

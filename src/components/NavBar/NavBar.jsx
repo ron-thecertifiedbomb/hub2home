@@ -7,6 +7,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { AiOutlineClose } from "react-icons/ai";
 
 const NavBar = () => {
+  
   const [showMenu, setShowMenu] = useState(false);
 
   return (
