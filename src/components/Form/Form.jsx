@@ -5,6 +5,7 @@ import { Select, Option, Textarea, Input } from "@material-tailwind/react";
 import { Buyer, Seller } from "../../constants/constants";
 import styles from "../../constants/style";
 import ImageUpload from "../ImageUpload/ImageUpload";
+import Captcha from '../../assets/captcha.png'
 
 const Form = () => {
   const navigate = useNavigate();
@@ -404,13 +405,14 @@ const Form = () => {
 
       <ImageUpload />
 
-      <div className="flex w-full justify-end mt-[60.7px]  border-gray-600 border-t-2 border-dashed border-spacing-1.5  pt-[60px] ">
+      <div className="flex w-full justify-end mt-[60.7px]  border-gray-600 border-t-2 border-dashed border-spacing-1.5  pt-[60px] relative ">
+        <img className="absolute top-[150px] md:absolute md:right-[-350px] md:top-[-10px]" src={Captcha} alt="captchalogo"></img>
         <button
           type="submit"
-          className="w-full md:w-[180px] h-[52px] bg-[#f02f1b]  rounded-md text-white"
-        >
+          className="w-full md:w-[180px] h-[52px] bg-[#f02f1b]  rounded-md text-white">
           Submit
         </button>
+
       </div>
     </form>
   );
