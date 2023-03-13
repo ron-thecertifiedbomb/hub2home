@@ -83,14 +83,12 @@ const Form = () => {
     setPreferredModeOfCommunication(e);
   };
 
-
-
-
   const sendEmail = () => {
     
     navigate("/success");
     console.log("We will send this information");
     alert("We will send this information");
+    toggle.setShowNavBar(false)
   };
 
   const stayOnThisPage = () => {
@@ -117,7 +115,6 @@ const Form = () => {
     {( name && contactNumber && emailAddress && concernAndDescription && buyerTrue && sellerTrue && preferredModeOfCommunication && buyersValueConcern ) ? sendEmail(): stayOnThisPage();}
     setStoreName("");
     setConcernAndDescription("");
-    toggle.setShowNavBar(false)
   };
 
   const handleSubmitSeller = (e) => {
@@ -140,7 +137,6 @@ const Form = () => {
 
     setStoreName("");
     setConcernAndDescription("");
-   toggle.setShowNavBar(false)
   };
 
   const handleFocus = () => {
