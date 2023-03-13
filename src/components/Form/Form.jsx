@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Radio } from "@material-tailwind/react";
 import { Select, Option, Textarea, Input } from "@material-tailwind/react";
@@ -6,10 +6,12 @@ import { Buyer, Seller } from "../../constants/constants";
 import styles from "../../constants/style";
 import ImageUpload from "../ImageUpload/ImageUpload";
 import Captcha from '../../assets/captcha.png'
+import { UserContext } from "../../UserContext/UserContext";
 
 const Form = () => {
-  const navigate = useNavigate();
 
+  const toggle = useContext(UserContext);
+  const navigate = useNavigate();
   const [buyer, setBuyer] = useState("");
   const [seller, setSeller] = useState("");
   const [name, setName] = useState("");
@@ -81,7 +83,11 @@ const Form = () => {
     setPreferredModeOfCommunication(e);
   };
 
+
+
+
   const sendEmail = () => {
+    
     navigate("/success");
     console.log("We will send this information");
     alert("We will send this information");
@@ -111,6 +117,7 @@ const Form = () => {
     {( name && contactNumber && emailAddress && concernAndDescription && buyerTrue && sellerTrue && preferredModeOfCommunication && buyersValueConcern ) ? sendEmail(): stayOnThisPage();}
     setStoreName("");
     setConcernAndDescription("");
+    toggle.setShowNavBar(false)
   };
 
   const handleSubmitSeller = (e) => {
@@ -133,6 +140,7 @@ const Form = () => {
 
     setStoreName("");
     setConcernAndDescription("");
+   toggle.setShowNavBar(false)
   };
 
   const handleFocus = () => {

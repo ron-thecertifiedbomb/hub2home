@@ -1,13 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import Logo from "../../assets/h2h-logo.svg";
 import Title from "../../assets/h2h-lm (1).svg";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../UserContext/UserContext";
 
 const SuccessfulPageHero = () => {
+
+
+
+  const toggle = useContext(UserContext);
+
   const navigate = useNavigate();
 
   const backToHome = () => {
     navigate("/");
+    toggle.setShowNavBar(true)
   };
 
   return (
