@@ -377,7 +377,7 @@ const Form = () => {
         )}
       </div>
 
-      <div className="flex flex-col w-full gap-3 mb-10">
+      <div className="flex flex-col w-full gap-3">
         <label className=" font-Roboto font-medium text-[18px] text-[#434343]">
           Preferred Mode of Communitcation
         </label>
