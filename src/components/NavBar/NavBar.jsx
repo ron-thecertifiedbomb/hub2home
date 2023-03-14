@@ -2,17 +2,14 @@ import React, { useState, useContext } from "react";
 import Logo from "../../assets/logo.svg";
 import styles from "../../constants/style";
 import { navLinks } from "../../constants/navlink";
-import { NavLink, Link } from "react-router-dom";
-import { RxHamburgerMenu } from "react-icons/rx";
-import { AiOutlineClose } from "react-icons/ai";
+import { NavLink} from "react-router-dom";
 import {UserContext} from  '../../UserContext/UserContext'
+import NavBarIcon from "../NavBarIcon/NavBarIcon";
 
 const NavBar = () => {
 
-
   const toggle = useContext(UserContext);
   
-  const [showMenu, setShowMenu] = useState(false);
 
   return (
     <section className={toggle.showNavBar? "w-full bg-[#FFF7F3] h-[60px] fixed z-10 top-0" : 'hidden'}>
@@ -30,40 +27,13 @@ const NavBar = () => {
             ))}
           </section>
 
-          <div
-            className="flex justify-center items-center pb-1 md:hidden "
-            onClick={() => {
-              setShowMenu(!showMenu);
-            }}
-          >
-            {showMenu ? (
-              <AiOutlineClose style={{ fontSize: "25", color: "black" }} />
-            ) : (
-              <RxHamburgerMenu style={{ fontSize: "25", color: "black" }} />
-            )}
+          <div className="flex justify-center items-center pb-1 md:hidden " >
+          <NavBarIcon />
           </div>
         </section>
       </nav>
-      <div className={showMenu ? styles.show : styles.hide}>
 
-        <section>
-            {navLinks.map((item, index) => (
-          <ul className="md:flex gap-[22px] " key={index} >
-              <Link to={item.to}>
-                <li
-                  className={styles.sublink}
-                  
-                  onClick={() => {
-                    setShowMenu(false);
-                  }}
-                >
-                  {item.link}
-                </li>
-              </Link>
-          </ul>
-            ))}
-        </section>
-      </div>
+     
     </section>
   );
 };
