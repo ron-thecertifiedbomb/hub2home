@@ -7,6 +7,7 @@ import styles from "../../constants/style";
 import ImageUpload from "../ImageUpload/ImageUpload";
 import Captcha from '../../assets/captcha.png'
 import { UserContext } from "../../UserContext/UserContext";
+import BackToTop from "../BackToTop/BackToTop";
 
 const Form = () => {
 
@@ -38,6 +39,13 @@ const Form = () => {
   const [errorBuyersValueConcern, setErrorBuyersValueConcern] = useState(false);
   const [errorSellersValueConcern, setErrorSellersValueConcern] = useState(false);
   const [errorPreferredModeOfCommunication, setErrorPreferredModeOfCommunication] = useState(false);
+
+  const scrollToTop = () =>{
+    window.scrollTo({
+      top: 400, 
+      behavior: 'smooth'
+    });
+  };
 
   useEffect(() => {
     setName("");
@@ -94,6 +102,7 @@ const Form = () => {
   const stayOnThisPage = () => {
     console.log("stay on this page");
     alert("stay on this page");
+    scrollToTop()
   };
 
   const handleSubmitBuyer = (e) => {
@@ -166,9 +175,10 @@ const Form = () => {
   console.log(`seller status: ${sellerTrue}`);
 
   return (
+    <section >
     <form
       onSubmit={buyer? handleSubmitBuyer : handleSubmitSeller}
-      className="p-5 pt-[70px] mb-40 max-w-[1020px] w-full m-auto  md:p-2px lg:pt-[86px]">
+      className="p-5 pt-[70px] mb-40 max-w-[1020px] w-full m-auto  md:p-2px lg:pt-[86px] relative z-1">
       
       <h1 className="font-Roboto text-[18px]">I am a</h1>
       <div className="flex sm:gap-25 md:gap-[35px] mt-[15px] mb-[15px]">
@@ -416,8 +426,13 @@ const Form = () => {
           className="w-full  md:w-[180px] h-[52px] bg-[#f02f1b]  rounded-md text-white">
           Submit
         </button>
+       
       </div>
     </form>
+    <div className="fixed bottom-[390px] right-[10px] md:bottom-[400px] md:right-[100px] lg:bottom-[400px] lg:right-[150px] z-10">
+    <BackToTop />
+    </div>
+    </section>
   );
 };
 

@@ -1,7 +1,7 @@
 
 import React, {useState} from 'react';
 import {FaArrowCircleUp} from 'react-icons/fa';
-import { Button } from './Styles';
+
   
 const BackToTop = () =>{
   
@@ -9,10 +9,10 @@ const BackToTop = () =>{
   
   const toggleVisible = () => {
     const scrolled = document.documentElement.scrollTop;
-    if (scrolled > 300){
+    if (scrolled > 500){
       setVisible(true)
     } 
-    else if (scrolled <= 300){
+    else if (scrolled <= 500){
       setVisible(false)
     }
   };
@@ -21,18 +21,16 @@ const BackToTop = () =>{
     window.scrollTo({
       top: 0, 
       behavior: 'smooth'
-      /* you can also use 'auto' behaviour
-         in place of 'smooth' */
     });
   };
   
   window.addEventListener('scroll', toggleVisible);
   
   return (
-    <Button>
+    <button>
      <FaArrowCircleUp onClick={scrollToTop} 
-     style={{display: visible ? 'inline' : 'none'}} />
-    </Button>
+     style={{display: visible ? 'inline' : 'none', color: '#F02F1B', fontSize: '30px'}} />
+    </button>
   );
 }
   
