@@ -5,7 +5,7 @@ import GoToTop from "../../components/GoToTop/GoToTop";
 const Home = () => {
   return (
     <main className="w-full">
-    <Hero title={"Home Page"} />
+    <Hero title={"Home"} />
     <GoToTop />
   </main>
   )
