@@ -1,439 +1,321 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { Radio } from "@material-tailwind/react";
-import { Select, Option, Textarea, Input } from "@material-tailwind/react";
-import { Buyer, Seller } from "../../constants/constants";
+import React, { useState } from "react";
+// import Hero from "../../components/Hero/Hero";
+// import GoToTop from "../../components/GoToTop/GoToTop";
 import styles from "../../constants/style";
-import ImageUpload from "../ImageUpload/ImageUpload";
-import Captcha from '../../assets/captcha.png'
-import { UserContext } from "../../UserContext/UserContext";
-import BackToTop from "../BackToTop/BackToTop";
+import { Radio } from "@material-tailwind/react";
+const Home = () => {
+  const [type, setType] = useState("Buyer");
 
-const Form = () => {
-
-  const toggle = useContext(UserContext);
-  const navigate = useNavigate();
-  const [buyer, setBuyer] = useState("");
-  const [seller, setSeller] = useState("");
   const [name, setName] = useState("");
-  const [storeName, setStoreName] = useState("");
-  const [contactNumber, setContactNumber] = useState("");
-  const [emailAddress, setEmailAddress] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [comments, setComments] = useState("");
+  const [nameError, setNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [phoneError, setPhoneError] = useState("");
+  const [commentsError, setCommentsError] = useState("");
+  const [store, setStore] = useState("");
+  const [storeError, setStoreError] = useState("");
+  const [typeConcern, setTypeConcern] = useState("");
+  const [errorValueConcern, setErrorValueConcern] = useState(false);
 
-  const [concernAndDescription, setConcernAndDescription] = useState("");
-  const [buyersValueConcern, setBuyersValueConcern] = useState("");
-  const [sellersValueConcern, setSellerssValueConcern] = useState("");
-  const [preferredModeOfCommunication, setPreferredModeOfCommunication] = useState("");
-
-  const [buyerTrue, setBuyerTrue] = useState(false);
-  const [sellerTrue, setSellerTrue] = useState(false);
-
-  const [errorBuyer, setErrorBuyer] = useState(false);
-  const [errorSeller, setErrorSeller] = useState(false);
-
-  const [errorName, setErrorName] = useState(false);
-  const [errorContactNumber, setErrorContactNumber] = useState(false);
-  const [errorEmailAddress, setErrorEmailAddress] = useState(false);
-  const [errorConcernAndDescription, setErrorConcernAndDescription] = useState(false);
-
-  const [errorBuyersValueConcern, setErrorBuyersValueConcern] = useState(false);
-  const [errorSellersValueConcern, setErrorSellersValueConcern] = useState(false);
-  const [errorPreferredModeOfCommunication, setErrorPreferredModeOfCommunication] = useState(false);
-
-  const scrollToTop = () =>{
-    window.scrollTo({
-      top: 400, 
-      behavior: 'smooth'
-    });
+  const selectConcern = (e) => {
+    setTypeConcern(e.target.value);
+    setErrorValueConcern(false)
   };
 
-  useEffect(() => {
-    setName("");
-    setContactNumber("");
-    setEmailAddress("");
-  }, [errorName, errorContactNumber, errorEmailAddress,]);
-
-  const inputName = (e) => {
-    setName(e.target.value);
-  };
-  const inputStoreName = (e) => {
-    setStoreName(e.target.value);
-  };
-  const inputContactNumber = (e) => {
-    setContactNumber(e.target.value);
-  };
-  const inputEmailAddress = (e) => {
-    setEmailAddress(e.target.value);
+  const onOptionChangeType = (e) => {
+    setType(e.target.value);
   };
 
-  const onOptionChangeBuyer = (e) => {
-    setBuyer(e.target.value);
-    setBuyerTrue(true);
-    setSellerTrue(true);
-    setSeller("");
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    if (name === "name") {
+      setName(value.slice(0, 50));
+      if (value.length > 50) {
+        setNameError("Name should not exceed 50 characters.");
+      } else {
+        setNameError("");
+      }
+    } else if (name === "store") {
+      setStore(value.slice(0, 50));
+      if (value.length > 50) {
+        setStoreError("Store Name should not exceed 50 characters.");
+      } else {
+        setStoreError("");
+      }
+    } else if (name === "email") {
+      setEmail(value.slice(0, 30));
+      if (!/^\S+@\S+\.\S+$/.test(value)) {
+        setEmailError("Please enter a valid email.");
+      } else if (value.length > 30) {
+        setEmailError("Email should not exceed 20 characters.");
+      } else {
+        setEmailError("");
+      }
+    } else if (name === "phone") {
+      setPhone(value.replace(/[^0-9]/g, "").slice(0, 20));
+      if (!/^[0-9]{0,20}$/.test(value)) {
+        setPhoneError("This entry can only contain numbers.");
+      } else {
+        setPhoneError("");
+      }
+    } else if (name === "comments") {
+      setComments(value);
+      if (value.length > 200) {
+        setCommentsError("Comments should not exceed 200 characters.");
+      } else {
+        setCommentsError("");
+      }
+    }
   };
 
-  const onOptionChangeSeller = (e) => {
-    setSeller(e.target.value);
-    setBuyerTrue(true);
-    setSellerTrue(true);
-    setBuyer("");
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (!name.trim()) {
+      setNameError("This is required.");
+    }
+    if (!email.trim()) {
+      setEmailError("This is required.");
+    }
+    if (!phone.trim()) {
+      setPhoneError("This is required.");
+    }
+    if (!comments.trim()) {
+      setCommentsError("This is required.");
+    }
+
+    if (!typeConcern) {
+      setErrorValueConcern(true);
+    }
+
+    if (
+      !phoneError &&
+      typeConcern &&
+      name.trim() &&
+      email.trim() &&
+      phone.trim() &&
+      comments.trim() &&
+      store.length < 50 &&
+      phone.length < 20 &&
+      name.length < 50 &&
+      email.length < 30 &&
+      /^\S+@\S+\.\S+$/.test(email) &&
+      /^[0-9]+$/.test(phone) &&
+      comments.length <= 200
+    ) {
+      alert("we will send this informtaion");
+      console.log("Type:", type);
+      console.log("Name:", name);
+      console.log("Email:", email);
+      console.log("Phone:", phone);
+      console.log("Comments:", comments);
+      console.log("Concern:", typeConcern);
+    } else {
+      alert("stay on this pages");
+    }
   };
-
-  const selectBuyerConcern = (e) => {
-    setBuyersValueConcern(e);
-  };
-  const selectSellerConcern = (e) => {
-    setSellerssValueConcern(e);
-  };
-
-  const selectPreferredModeOfCommunication = (e) => {
-    setPreferredModeOfCommunication(e);
-  };
-
-  const sendEmail = () => {
-    
-    navigate("/success");
-    console.log("We will send this information");
-    alert("We will send this information");
-    toggle.setShowNavBar(false)
-  };
-
-  const stayOnThisPage = () => {
-    console.log("stay on this page");
-    alert("stay on this page");
-    scrollToTop()
-  };
-
-  const handleSubmitBuyer = (e) => {
-    e.preventDefault();
-    setName(e.target.value);
-    setContactNumber(e.target.value);
-    setEmailAddress(e.target.value);
-    setConcernAndDescription(e.target.value);
-
-    {name === "" ? setErrorName(true) : setName("");}
-    {contactNumber === "" ? setErrorContactNumber(true) : setContactNumber("");}
-    {emailAddress === "" ? setErrorEmailAddress(true) : setEmailAddress("");}
-    {buyer === "" ? setErrorBuyer(true) : "";}
-    {seller === "" ? setErrorSeller(true) : "";}
-    {concernAndDescription === "" ? setErrorConcernAndDescription(true) : "";}
-    {buyersValueConcern === ""? setErrorBuyersValueConcern(true) : setErrorBuyersValueConcern(false);}
-    {sellersValueConcern === "" ? setErrorSellersValueConcern(true): setErrorSellersValueConcern(false);}
-    {preferredModeOfCommunication === ""? setErrorPreferredModeOfCommunication(true): setErrorPreferredModeOfCommunication(false);}
-    {( name && contactNumber && emailAddress && concernAndDescription && buyerTrue && sellerTrue && preferredModeOfCommunication && buyersValueConcern ) ? sendEmail(): stayOnThisPage();}
-    setStoreName("");
-    setConcernAndDescription("");
-  };
-
-  const handleSubmitSeller = (e) => {
-    e.preventDefault();
-    setName(e.target.value);
-    setContactNumber(e.target.value);
-    setEmailAddress(e.target.value);
-    setConcernAndDescription(e.target.value);
-
-    {name === "" ? setErrorName(true) : setName("")}
-    {contactNumber === "" ? setErrorContactNumber(true) : setContactNumber("");}
-    {emailAddress === "" ? setErrorEmailAddress(true) : setEmailAddress("");}
-    {buyer === "" ? setErrorBuyer(true) : "";}
-    {seller === "" ? setErrorSeller(true) : "";}
-    {concernAndDescription === "" ? setErrorConcernAndDescription(true) : "";}
-    {buyersValueConcern === "" ? setErrorBuyersValueConcern(true): setErrorBuyersValueConcern(false);}
-    {sellersValueConcern === ""? setErrorSellersValueConcern(true): setErrorSellersValueConcern(false);}
-    {preferredModeOfCommunication === ""? setErrorPreferredModeOfCommunication(true): setErrorPreferredModeOfCommunication(false);}
-    {( name && contactNumber && emailAddress && concernAndDescription && buyerTrue && sellerTrue && preferredModeOfCommunication && sellersValueConcern ) ? sendEmail(): stayOnThisPage();}
-
-    setStoreName("");
-    setConcernAndDescription("");
-  };
-
-  const handleFocus = () => {
-    setErrorName(false);
-    setErrorContactNumber(false);
-    setErrorEmailAddress(false);
-    setErrorBuyer(false);
-    setErrorSeller(false);
-    setErrorConcernAndDescription(false);
-    setErrorSellersValueConcern(false);
-    setErrorBuyersValueConcern(false);
-    setErrorPreferredModeOfCommunication(false)
-  };
-
-  console.log(`I am a: ${buyer}`);
-  console.log(`I am a: ${seller}`);
-  console.log(`Complete Name: ${name}`);
-  console.log(`Contact Number: ${contactNumber}`);
-  console.log(`Store Name (optional): ${storeName}`);
-  console.log(`Email Address: ${emailAddress}`);
-  console.log(`Concern/s: ${buyersValueConcern}`);
-  console.log(`Concern/s: ${sellersValueConcern}`);
-  console.log(`Concern/s and Description: ${concernAndDescription}`);
-  console.log(`Preferred Mode of Communication: ${preferredModeOfCommunication}`);
-
-  console.log(`buyer status: ${buyerTrue}`);
-  console.log(`seller status: ${sellerTrue}`);
 
   return (
-    <section >
-    <form
-      onSubmit={buyer? handleSubmitBuyer : handleSubmitSeller}
-      className="p-5 pt-[70px] mb-40 max-w-[1020px] w-full m-auto  md:p-2px lg:pt-[86px] relative z-1">
-      
-      <h1 className="font-Roboto text-[18px]">I am a</h1>
-      <div className="flex sm:gap-25 md:gap-[35px] mt-[15px] mb-[15px]">
-        <div className="flex sm:gap-1 justify-center items-center md:gap-2">
-          <Radio
-            type="radio"
-            id="buyer"
-            name="buyer"
-            color="red"
-            value="Buyer"
-            checked={buyer === Buyer}
-            onChange={onOptionChangeBuyer}
-          />
+    <section>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <h1 className="font-Roboto text-[18px]">I am a</h1>
+        <div className={styles.container}>
+          <div className={styles.radiobuttoncontainer}>
+            <Radio
+              className="radio h-7 w-7"
+              type="radio"
+              id="buyer"
+              name="buyer"
+              color="red"
+              value="Buyer"
+              checked={type === "Buyer"}
+              onChange={onOptionChangeType}
+            />
+            <label className={styles.title}>Buyer</label>
+          </div>
 
-          <label className={styles.title}>Buyer</label>
+          <div className={styles.radiobuttoncontainer}>
+            <Radio
+              className="radio h-7 w-7"
+              type="radio"
+              id="seller"
+              name="seller"
+              color="red"
+              value="Seller"
+              checked={type === "Seller"}
+              onChange={onOptionChangeType}
+            />
+            <label className={styles.title}>Seller</label>
+          </div>
+        </div>
+        <br></br>
+
+        <div className={styles.inputcontainer}>
+          <label className={styles.title}>Complete Name </label>
+          <input
+            
+            placeholder="Complete Name"
+            type="text"
+            name="name"
+            value={name}
+            id ='name'
+            onChange={handleChange}
+          />
+        </div>
+        <div className={styles.errorcontainer}>
+          {nameError && <div className={styles.error}>{nameError}</div>}
         </div>
 
-        <div className="flex sm:gap-2 justify-center items-center md:gap-3">
-          <Radio
-            type="radio"
-            id="seller"
-            name="seller"
-            color="red"
-            value="Seller"
-            checked={seller === Seller}
-            onChange={onOptionChangeSeller}
+        <div className={styles.inputcontainer}>
+          <label className={styles.title}>Store Name (if applicable)</label>
+          <input
+            className={styles.input}
+            placeholder="Store Name"
+            name="store"
+            type="text"
+            value={store}
+            onChange={handleChange}
           />
-
-          <label className={styles.title}>Seller</label>
         </div>
-      </div>
 
-      {errorBuyer && errorSeller ? (
-        <p className={styles.error}>This field is required</p>
-      ) : (
-        <p className="invisible text-red-500 text-xs italic mb-5">
-          This field is required
-        </p>
-      )}
+        <div className={styles.errorcontainer}>
+          {" "}
+          {storeError && <div className={styles.error}>{storeError}</div>}{" "}
+        </div>
 
-      <div className="flex flex-col w-full gap-2 mt-5 mb-1">
-        <label className={styles.title}>Complete Name</label>
+        <div className={styles.inputcontainer}>
+          <label className={styles.title}>Contact Number:</label>
+          <input
+            className={styles.input}
+            type="text"
+            name="phone"
+            placeholder="Contact Number"
+            value={phone}
+            onChange={handleChange}
+          />
+        </div>
+        <div className={styles.errorcontainer}>
+          {" "}
+          {phoneError && <div className={styles.error}>{phoneError}</div>}{" "}
+        </div>
 
-        <Input
-          color="red"
-          size="md"
-          label="Complete Name"
-          type="text"
-          id="name"
-          pattern="^[a-zA-Z0-9\s\'\]+$"
-          title="Please enter alphanumeric characters only"
-          value={name}
-          onChange={inputName}
-          onFocus={handleFocus}
-        />
-      </div>
+        <div className={styles.inputcontainer}>
+          <label className={styles.title}>Email:</label>
+          <input
+            className={styles.input}
+            placeholder="Enter your email address"
+            type="text"
+            name="email"
+            value={email}
+            onChange={handleChange}
+          />
+        </div>
+        <div className={styles.errorcontainer}>
+          {" "}
+          {emailError && <div className={styles.error}>{emailError}</div>}
+        </div>
 
-      {errorName ? (
-        <p className={styles.error}>This field is required</p>
-      ) : (
-        <p className="invisible text-red-500 text-xs italic mb-5">
-          This field is required
-        </p>
-      )}
-
-      <div className="flex flex-col w-full gap-2 mt-5 mb-10">
-        <label className={styles.title}>Store Name (if applicable)</label>
-
-        <Input
-          color="red"
-          size="md"
-          label="Enter your store name"
-          id="store name"
-          type="text"
-          pattern="/^[a-z\d\-_\@\s]+$/"
-          value={storeName}
-          onChange={inputStoreName}
-          onFocus={handleFocus}
-        />
-      </div>
-
-      <div className="flex flex-col w-full gap-2 mt-5 mb-1">
-        <label className={styles.title}>Contact Number</label>
-
-        <Input
-          color="red"
-          size="md"
-          label="Enter your contact number"
-          id="contact-number"
-          type="tel"
-          value={contactNumber}
-          onChange={inputContactNumber}
-          onFocus={handleFocus}
-        />
-      </div>
-      {errorContactNumber ? (
-        <p className={styles.error}>This field is required</p>
-      ) : (
-        <p className="invisible text-red-500 text-xs italic mb-5">
-          This field is required
-        </p>
-      )}
-
-      <div className="flex flex-col w-full gap-2 mt-5 mb-1">
-        <label className={styles.title}>Email Address</label>
-        <Input
-          color="red"
-          size="md"
-          label="Enter your email address"
-          id="email address"
-          type="email"
-          value={emailAddress}
-          onChange={inputEmailAddress}
-          onFocus={handleFocus}
-        />
-      </div>
-
-      {errorEmailAddress ? (
-        <p className={styles.error}>This field is required</p>
-      ) : (
-        <p className="invisible text-red-500 text-xs italic mb-5 ">
-          This field is required
-        </p>
-      )}
-
-      {buyer ? (
-        <div className="flex flex-col w-full gap-3 mb-5">
+        {type === "Buyer" ? (
+          <div className="flex flex-col w-full gap-3 mb-5">
           <label className={styles.title}>Concern/s</label>
-          <Select
-            color="red"
-            label="Enter Concerns"
-            onChange={selectBuyerConcern}
-            value={buyersValueConcern}
-            onFocus={handleFocus}
+          <select
+            className="placeholder-grey-300 border-[1px] h-[40px] font-Roboto text-[16px] text-[grey]  border-h2h-100  outline-1 outline-h2h-50 rounded-lg p-2"
+            onChange={selectConcern}
+            value={typeConcern}
+           
           >
-            <Option value="product and description">Product Desctiption</Option>
-            <Option value="store information">Store Information</Option>
-            <Option value="warranty">Warranty</Option>
-            <Option value="about shipment">About Shipment</Option>
-            <Option value="about the order">About the Order</Option>
-            <Option value="returns and refunds">Returns and Refunds</Option>
-            <Option value="about cancellation">About Cancellation</Option>
-            <Option value="about my account">About My Account</Option>
-            <Option value="other concerns">Other Concerns</Option>
-          </Select>
+              <option
+              className="font-Roboto text-[16px] text-[grey] "
+              value=""
+              hidden
+              selected
+              disabled
+            >
+              Select your concerns
+            </option>
+            <option value="product and description">Product Description</option>
+            <option value="store information">Store Information</option>
+            <option value="warranty">Warranty</option>
+            <option value="about shipment">About Shipment</option>
+            <option value="about the order">About the Order</option>
+            <option value="returns and refunds">Returns and Refunds</option>
+            <option value="about cancellation">About Cancellation</option>
+            <option value="about my account">About My Account</option>
+            <option value="other concerns">Other Concerns</option>
+          </select>
 
-          {errorBuyersValueConcern ? (
+          {errorValueConcern ? (
             <p className={styles.error}>This field is required</p>
           ) : (
-            <p className="invisible text-red-500 text-xs italic mb-1 ">
-              This field is required
-            </p>
+            <p className="invisible">This field is required</p>
           )}
         </div>
-      ) : (
-        ""
-      )}
-
-      {seller ? (
-        <div className="flex flex-col w-full gap-3 mb-5">
-          <label className={styles.title}>Concern/s</label>
-          <Select
-            color="red"
-            label="Enter Concerns"
-            onChange={selectSellerConcern}
-            value={sellersValueConcern}
-            onFocus={handleFocus}
-          >
-            <Option value="about my account">About My Account</Option>
-            <Option value="about the process">About the Process</Option>
-            <Option value="about the packaging">About the Packaging</Option>
-            <Option value="claims and payment">Claims and Payment</Option>
-            <Option value="about the order">About the Order</Option>
-            <Option value="returns and refunds">Returns and Refunds</Option>
-            <Option value="other concerns">Other Concerns</Option>
-          </Select>
-
-          {errorSellersValueConcern ? (
-            <p className={styles.error}>This field is required</p>
-          ) : (
-            <p className="invisible text-red-500 text-xs italic mb-1 ">
-              This field is required
-            </p>
-          )}
-        </div>
-      ) : (
-        ""
-      )}
-
-      {/* Concern/s Description */}
-
-      <div className="flex flex-col w-full gap-3 mb-1">
-        <label className={styles.title}>Concern/sDescription</label>
-
-        <Textarea
-          color="red"
-          label="Enter your concerns description"
-          type="text"
-          value={concernAndDescription}
-          onChange={(e) => setConcernAndDescription(e.target.value)}
-          onFocus={handleFocus}
-        />
-
-        {errorConcernAndDescription ? (
-          <p className={styles.error}>This field is required</p>
         ) : (
-          <p className="invisible text-red-500 text-xs italic mb-2 ">
-            This field is required
-          </p>
+          ""
         )}
-      </div>
 
-      <div className="flex flex-col w-full gap-3">
-        <label className=" font-Roboto font-medium text-[18px] text-[#434343]">
-          Preferred Mode of Communitcation
-        </label>
+        {type === "Seller"? (
+          <div className="flex flex-col w-full gap-3 mb-5">
+            <label className={styles.title}>Concern/s</label>
+            <select
+              className="placeholder-grey-300 border-[1px] h-[40px] font-Roboto text-[16px] text-[grey]  border-h2h-100  outline-1 outline-h2h-50 rounded-lg p-2"
+              onChange={selectConcern}
+              value={typeConcern}
+             
+            >
+            <option
+               className="font-Roboto text-[16px] text-[grey] "
+              value=""
+              hidden
+              selected
+              disabled
+            >
+              Select your concerns
+            </option>
+           
+              <option value="about my account">About My Account</option>
+              <option value="about the process">About the Process</option>
+              <option value="about the packaging">About the Packaging</option>
+              <option value="claims and payment">Claims and Payment</option>
+              <option value="about the order">About the Order</option>
+              <option value="returns and refunds">Returns and Refunds</option>
+              <option value="other concerns">Other Concerns</option>
+            </select>
 
-        <Select
-          color="red"
-          label="Enter Concerns"
-          onChange={selectPreferredModeOfCommunication}
-          value={preferredModeOfCommunication}
-          onFocus={handleFocus}
-        >
-          <Option value="phone call">Phone Call</Option>
-          <Option value="tet message">Text Message</Option>
-          <Option value="email">Email</Option>
-        </Select>
 
-        {errorPreferredModeOfCommunication ? (
-            <p className={styles.error}>This field is required</p>
-          ) : (
-            <p className="invisible text-red-500 text-xs italic mb-1 ">
-              This field is required
-            </p>
-          )}
-      </div>
+            {errorValueConcern ? (
+              <p className={styles.error}>This field is required</p>
+            ) : (
+              <p className="invisible">This field is required</p>
+            )}
 
-      <ImageUpload />
 
-      <div className="flex flex-col-reverse justify-start w-full gap-5 md:flex-row-reverse md:justify-between md:items-center mt-[60.7px]  border-gray-600 border-t-2 border-dashed border-spacing-1.5  pt-[60px]">
-        <img  src={Captcha} alt="captchalogo" className="w-[250px] md:w-[280px]"></img>
-        <button
-          type="submit"
-          className="w-full  md:w-[180px] h-[52px] bg-[#f02f1b]  rounded-md text-white">
-          Submit
-        </button>
-       
-      </div>
-    </form>
-    <div className="fixed bottom-[390px] right-[10px] md:bottom-[400px] md:right-[100px] lg:bottom-[400px] lg:right-[150px] z-10">
-    <BackToTop />
-    </div>
+          </div>
+        ) : (
+          ""
+        )}
+
+
+
+        <div className={styles.inputcontainer}>
+          <label>Comments:</label>
+          <textarea
+            className={styles.textarea}
+            name="comments"
+            value={comments}
+            onChange={handleChange}
+          />
+        </div>
+        <div className={styles.errorcontainer}>
+          {" "}
+          {commentsError && <div className={styles.error}>{commentsError}</div>}
+        </div>
+
+        <button type="submit">Submit</button>
+      </form>
     </section>
   );
 };
 
-export default Form;
+export default Home;
