@@ -3,7 +3,7 @@ import React, { useState } from "react";
 // import GoToTop from "../../components/GoToTop/GoToTop";
 import styles from "../../constants/style";
 import { Radio } from "@material-tailwind/react";
-const Home = () => {
+const Form = () => {
   const [type, setType] = useState("Buyer");
 
   const [name, setName] = useState("");
@@ -318,4 +318,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Form;
